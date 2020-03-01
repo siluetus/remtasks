@@ -1,4 +1,8 @@
 /.classpath
 /.project
 /jetty-*.jar
+/json-simple-*.jar
 /.settings
+/bin/
+/clientData/*
+!/clientData/.gitkeep

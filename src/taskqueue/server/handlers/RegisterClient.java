@@ -5,9 +5,10 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import taskqueue.server.Server;
 
 public class RegisterClient extends AbstractHandler{
 
@@ -17,9 +18,17 @@ public class RegisterClient extends AbstractHandler{
 			HttpServletRequest request,
 			HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		
+		Server server = this.getTaskQServer();
+		String clientId = server.registerClient();
+		response.setContentType("application/json");
+		JSONArray answer = new JSONArray();
+		answer.add(clientId);
+		server.respondJSON(answer, response);
+		
+		baseRequest.setHandled(true);
 	}
+	
 
 	
 	
