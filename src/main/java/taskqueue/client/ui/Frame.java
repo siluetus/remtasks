@@ -1,6 +1,7 @@
 package taskqueue.client.ui;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -9,13 +10,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.io.File;
 
+
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.filechooser.*;
+import javax.swing.JTabbedPane;
+import javax.swing.DefaultListModel;
+
 
 import taskqueue.client.RunClient;
+
 
 
 public class Frame extends JFrame {
@@ -37,21 +47,39 @@ public class Frame extends JFrame {
 				super.paint(g);
 				// setBackground(Color.YELLOW);
 				// g.setColor( Color.yellow);
-				g.fillRoundRect(x, y, 5, 5, 5, 5);
+				//g.fillRoundRect(x, y, 5, 5, 5, 5);
 			}
 		};
-		JButton startTask1 = new JButton("Start task 1");
+		JPanel panelFiles = new JPanel();
+		JPanel panelTasks = new JPanel();
+		JPanel panelWorks = new JPanel();
+		//файлы, задачи, работы - вкладки (мб цепочки задач) 
+		
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.setBounds(0, 300, 500, 60);
+		tabbedPane.add("Init", panel);
+		tabbedPane.add("Files", panelFiles);
+		tabbedPane.add("Tasks", panelTasks);
+		tabbedPane.add("Works", panelWorks);
+		
+		add(tabbedPane);
+		final JFilePicker fpicker = new JFilePicker("Pick a task", "Load");
+		fpicker.setMode(JFilePicker.MODE_OPEN);
+		final JButton startTask1 = new JButton("Start the task");
 		startTask1.setLocation(10, 10);
 		startTask1.setVisible(true);
 		startTask1.setEnabled(true);
 		startTask1.setMinimumSize(new Dimension(40, 20));
+		
+		/*final JFileChooser fchooser = new JFileChooser();
 
 		JButton startTask2 = new JButton("Start task 2");
 		startTask2.setLocation(10, 40);
 		startTask2.setVisible(true);
 		startTask2.setEnabled(true);
-		startTask2.setMinimumSize(new Dimension(40, 20));
-
+		startTask2.setMinimumSize(new Dimension(40, 20));*/
+		
+		final DefaultListModel<String> listM = new DefaultListModel<String>();
 		JLabel exQueue = new JLabel();
 		exQueue.setBackground(Color.CYAN);
 		JLabel waitQueue = new JLabel();
@@ -64,26 +92,33 @@ public class Frame extends JFrame {
 		setMinimumSize(new Dimension(500, 500));
 		setPreferredSize(new Dimension(1000, 800));
 		panel.setMinimumSize(new Dimension(500, 500));
+		panel.add(fpicker);
 		panel.add(startTask1);
-		panel.add(startTask2);
+		//panel.add(startTask2);
+		
 
 		panel.add(exQueue);
 		panel.add(waitQueue);
+		
 		panel.setBackground(Color.YELLOW);
 		 x = 50;
 		 y = 50;
+		 
 		startTask1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//try {
-					//dos.writeInt(1);
-					repaint();
-//				} catch (IOException ex) {
-//					ex.printStackTrace();
-//					;
-//				}
+			
+				JFileChooser fchooser = fpicker.getFileChooser();
+				final File f = fchooser.getSelectedFile();
+				listM.addElement(f.getAbsolutePath());
+				repaint();
 			}
 		});
-		startTask2.addActionListener(new ActionListener() {
+		
+		// вкладка файлов
+		
+		
+		//panelFiles.add(list);
+		/*startTask2.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				//try {
@@ -93,7 +128,7 @@ public class Frame extends JFrame {
 //					;
 //				}
 			}
-		});
+		}); */
 
 		panel.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -123,7 +158,8 @@ public class Frame extends JFrame {
 			}
 		});
 
-		add(panel);
+		//add(panel);
+		
 	}
 	
 	public void setThread(Thread appThread) {
