@@ -4,6 +4,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.UUID;
 
+import taskqueue.server.client.Client;
+
 public class ClientCollection {
 
 	protected Dictionary<UUID,Client> clients;
