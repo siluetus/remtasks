@@ -73,7 +73,6 @@ public class Frame extends JFrame {
 		 x = 50;
 		 y = 50;
 		startTask1.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				//try {
 					//dos.writeInt(1);
@@ -85,7 +84,7 @@ public class Frame extends JFrame {
 			}
 		});
 		startTask2.addActionListener(new ActionListener() {
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				//try {
 					//dos.writeInt(2);
@@ -97,11 +96,9 @@ public class Frame extends JFrame {
 		});
 
 		panel.addMouseListener(new MouseListener() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 
-			@Override
 			public void mousePressed(MouseEvent e) {
 				int x = e.getX();
 				int y = e.getY();
@@ -113,17 +110,14 @@ public class Frame extends JFrame {
 				repaint();
 			}
 
-			@Override
 			public void mouseReleased(MouseEvent e) {
 
 			}
 
-			@Override
 			public void mouseEntered(MouseEvent e) {
 
 			}
 
-			@Override
 			public void mouseExited(MouseEvent e) {
 
 			}

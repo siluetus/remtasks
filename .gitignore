@@ -6,3 +6,4 @@
 /bin/
 /clientData/*
 !/clientData/.gitkeep
+/target/
