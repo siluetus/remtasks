@@ -15,7 +15,6 @@ import org.json.simple.JSONAware;
 import simple.embedding.jetty.HelloWorld;
 import org.eclipse.jetty.util.log.Log;
 
-
 public class Server extends org.eclipse.jetty.server.Server {
 	
 	protected ClientCollection clientCollection;

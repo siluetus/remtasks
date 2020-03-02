@@ -21,7 +21,6 @@ public class RunClient {
 	
 	public RunClient(Frame frame) {
 		this.frame = frame;
-	
 	}
 
 	/**
@@ -34,16 +33,14 @@ public class RunClient {
 
 	private void start() throws InterruptedException {
 		
-		Frame localframe = this.frame;
-		RunClient runner = this;
 		
         javax.swing.SwingUtilities.invokeLater(new Runnable() { 
         	 
             public void run() { 
   
-            	localframe.initFrame();
-            	localframe.setVisible(true);
-            	localframe.setRunner(runner);
+            	frame.initFrame();
+            	frame.setVisible(true);
+            	frame.setRunner(RunClient.this);
             	
              } 
   
