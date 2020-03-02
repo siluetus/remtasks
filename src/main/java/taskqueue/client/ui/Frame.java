@@ -65,11 +65,17 @@ public class Frame extends JFrame {
 		add(tabbedPane);
 		final JFilePicker fpicker = new JFilePicker("Pick a task", "Load");
 		fpicker.setMode(JFilePicker.MODE_OPEN);
-		final JButton startTask1 = new JButton("Start the task");
-		startTask1.setLocation(10, 10);
-		startTask1.setVisible(true);
-		startTask1.setEnabled(true);
-		startTask1.setMinimumSize(new Dimension(40, 20));
+		final JButton uploadButton = new JButton("Unpload");
+		uploadButton.setLocation(10, 10);
+		uploadButton.setVisible(true);
+		uploadButton.setEnabled(true);
+		uploadButton.setMinimumSize(new Dimension(40, 20));
+		JTextField singinTextField = new JTextField();
+		singinTextField.setText("Enter id here");
+		JButton singinButton = new JButton();
+		singinButton.setText("Log in");
+		panel.add(singinTextField);
+		panel.add(singinButton);
 		
 		/*final JFileChooser fchooser = new JFileChooser();
 
@@ -93,7 +99,7 @@ public class Frame extends JFrame {
 		setPreferredSize(new Dimension(1000, 800));
 		panel.setMinimumSize(new Dimension(500, 500));
 		panel.add(fpicker);
-		panel.add(startTask1);
+		panel.add(uploadButton);
 		//panel.add(startTask2);
 		
 
@@ -104,12 +110,13 @@ public class Frame extends JFrame {
 		 x = 50;
 		 y = 50;
 		 
-		startTask1.addActionListener(new ActionListener() {
+		uploadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
 				JFileChooser fchooser = fpicker.getFileChooser();
 				final File f = fchooser.getSelectedFile();
 				listM.addElement(f.getAbsolutePath());
+				
 				repaint();
 			}
 		});
