@@ -2,7 +2,7 @@ package taskqueue.client.response.json;
 
 import java.io.Serializable;
 
-public class JsonReplyString implements JSonReply,Serializable,Comparable<JsonReplyString>,CharSequence {
+public class JsonReplyString implements JsonReply,Serializable,Comparable<JsonReplyString>,CharSequence {
 	
 	/**
 	 * 

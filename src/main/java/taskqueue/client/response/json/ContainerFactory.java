@@ -6,11 +6,11 @@ import java.util.Map;
 public class ContainerFactory implements org.json.simple.parser.ContainerFactory {
 
 	public Map createObjectContainer() {
-		return new JsonReplyMap<String,JSonReply>();
+		return new JsonReplyMap<String,JsonReply>();
 	}
 
 	public List creatArrayContainer() {
-		return new JsonReplyList<JSonReply>();
+		return new JsonReplyList<JsonReply>();
 	}
 
 }

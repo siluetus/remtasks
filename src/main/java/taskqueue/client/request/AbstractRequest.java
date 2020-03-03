@@ -1,19 +1,16 @@
 package taskqueue.client.request;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpFields;
 import org.eclipse.jetty.http.HttpMethod;
-import org.json.simple.JSONAware;
-import org.json.simple.JSONObject;
+
 
 import org.json.simple.parser.JSONParser;
 
 import taskqueue.client.response.AbstractResponseMapper;
 import taskqueue.client.response.json.ContainerFactory;
+import taskqueue.client.response.json.JsonReply;
 
 
 public abstract class AbstractRequest implements Runnable {
@@ -24,26 +21,39 @@ public abstract class AbstractRequest implements Runnable {
 	protected JSONParser parser = new JSONParser();
 	protected ContainerFactory jsoncontainerfactory = new ContainerFactory();
 	protected AbstractResponseMapper responseMapper;
+	protected String localPath = "/";
 	
 	
-	public abstract String getLocalPath();
+	public String getLocalPath() {
+		return this.localPath;
+	}
 	
 	public void run() {
 		
+		String content = "Error"; 
 		try {
 			ContentResponse response = httpRequest.send();
 			String contentType = response.getHeaders().get("Content-Type");
 			
+			if(response.getStatus()!=200) {
+				throw new Exception("Http status is "+String.valueOf(response.getStatus()));
+			}
+			
 			if(!contentType.substring(0, this.protocolContentType.length()).equals(this.protocolContentType)) {
 				throw new Exception("Invalid content type");
 			}
-			this.parser.parse(response.getContentAsString(),jsoncontainerfactory);
+			content = response.getContentAsString();
+			JsonReply reply = (JsonReply) this.parser.parse(content,jsoncontainerfactory);
+			this.responseMapper.responseUINormal(reply);
 			
 
 		} catch (Exception e) {
+			this.responseMapper.responseUIError(e.getMessage());
 		}
+		this.responseMapper.invokeProxyAction();
 		
-}	
+	}
+	
 	public void setHttpRequest(Request httpRequest) {
 		this.httpRequest = httpRequest;
 		this.httpRequest.method(this.httpMethod);

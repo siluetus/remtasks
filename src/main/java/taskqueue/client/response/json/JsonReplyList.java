@@ -2,7 +2,7 @@ package taskqueue.client.response.json;
 
 import java.util.ArrayList;
 
-public class JsonReplyList<V> extends ArrayList<V> implements JSonReply {
+public class JsonReplyList<V> extends ArrayList<V> implements JsonReply {
 
 	/**
 	 * 

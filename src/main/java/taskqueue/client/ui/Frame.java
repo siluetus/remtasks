@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -28,7 +29,7 @@ import taskqueue.client.RunClient;
 
 
 
-public class Frame extends JFrame {
+public class Frame extends AbstractClientFrame {
 	int x = 0;
 	int y = 0;
 	/**
@@ -36,8 +37,6 @@ public class Frame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected Thread appThread;
-	protected RunClient runner; 
 	
 	public void initFrame() {
 		
@@ -63,19 +62,27 @@ public class Frame extends JFrame {
 		tabbedPane.add("Works", panelWorks);
 		
 		add(tabbedPane);
-		final JFilePicker fpicker = new JFilePicker("Pick a task", "Load");
+		fpicker = new JFilePicker("Pick a task", "Load");
 		fpicker.setMode(JFilePicker.MODE_OPEN);
-		final JButton uploadButton = new JButton("Unpload");
+		uploadButton = new JButton("Unpload");
 		uploadButton.setLocation(10, 10);
 		uploadButton.setVisible(true);
 		uploadButton.setEnabled(true);
 		uploadButton.setMinimumSize(new Dimension(40, 20));
-		JTextField singinTextField = new JTextField();
-		singinTextField.setText("Enter id here");
-		JButton singinButton = new JButton();
-		singinButton.setText("Log in");
-		panel.add(singinTextField);
-		panel.add(singinButton);
+		signinTextField = new JTextField();
+		signinTextField.setText("Enter id here");
+		signinTextField.setColumns(28);
+		signinTextField.setMinimumSize(new Dimension(1300,signinTextField.getMinimumSize().height));
+		signInButton = new JButton();
+		signInButton.setText("Log in");
+		signUpButton = new JButton();
+		signUpButton.setText("Register");
+		panel.add(signinTextField);
+		panel.add(signInButton);
+		panel.add(signUpButton);
+		
+		
+	
 		
 		/*final JFileChooser fchooser = new JFileChooser();
 
@@ -168,13 +175,11 @@ public class Frame extends JFrame {
 		//add(panel);
 		
 	}
-	
-	public void setThread(Thread appThread) {
-		this.appThread = appThread;
-	}
-	
-	public void setRunner(RunClient runner) {
-		this.runner = runner;
-	}
-	
+
+//	public void dispose() {
+//		Window[] windows = this.getWindows();
+//		for(int i=0;i<windows.length;i++) {
+//			windows[i].dispose();
+//		}
+//	}
 }

@@ -3,7 +3,7 @@ package taskqueue.client.response.json;
 import java.util.HashMap;
 
 
-public class JsonReplyMap<K,V> extends HashMap<K,V> implements JSonReply {
+public class JsonReplyMap<K,V> extends HashMap<K,V> implements JsonReply {
 
 	/**
 	 * 
