@@ -35,4 +35,5 @@ public abstract class AbstractResponseMapper {
 	public String getError() {
 		return error;
 	}
+
 }

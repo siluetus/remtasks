@@ -117,16 +117,16 @@ public class Frame extends AbstractClientFrame {
 		 x = 50;
 		 y = 50;
 		 
-		uploadButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				JFileChooser fchooser = fpicker.getFileChooser();
-				final File f = fchooser.getSelectedFile();
-				listM.addElement(f.getAbsolutePath());
-				
-				repaint();
-			}
-		});
+//		uploadButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			
+//				JFileChooser fchooser = fpicker.getFileChooser();
+//				final File f = fchooser.getSelectedFile();
+//				listM.addElement(f.getAbsolutePath());
+//				
+//				repaint();
+//			}
+//		});
 		
 		// вкладка файлов
 		

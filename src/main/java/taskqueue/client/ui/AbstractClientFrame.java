@@ -45,5 +45,9 @@ public abstract class AbstractClientFrame extends JFrame {
 		return this.signinTextField;
 	}
 	
+	public JFilePicker getFilePicker() {
+		return this.fpicker;
+	}
+	
 	
 }

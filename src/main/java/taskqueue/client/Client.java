@@ -9,10 +9,13 @@ import taskqueue.client.request.AbstractRequest;
 import taskqueue.client.response.AbstractResponseManager;
 import taskqueue.client.response.SignedUpResponseManager;
 import taskqueue.client.response.SignedUpResponseMapper;
+import taskqueue.client.response.UploadResponseManager;
 import taskqueue.client.ui.AbstractClientFrame;
 import taskqueue.client.ui.handlers.AbstractHandler;
 import taskqueue.client.ui.handlers.SignInHandler;
 import taskqueue.client.ui.handlers.SignUpHandler;
+import taskqueue.client.ui.handlers.UploadHandler;
+
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 
@@ -24,9 +27,12 @@ public class Client {
 	protected Boolean admin;
 	protected String serverBaseURI;
 	protected SignedUpResponseManager signedUpManager;
+	protected UploadResponseManager fileUploadedManager; 	
 	
 	protected AbstractHandler signUpHandler;
-	protected AbstractHandler signInHandler; 	
+	protected AbstractHandler signInHandler;
+	protected AbstractHandler uploadHandler;
+	
 	
 	
 	public Client (RunClient runner) {
@@ -66,8 +72,10 @@ public class Client {
 	public void initHandlers(AbstractClientFrame clientFrame) {
 		
 		this.signedUpManager = new SignedUpResponseManager(this);
+		this.fileUploadedManager = new UploadResponseManager(this);
 		this.signUpHandler = this.createUiHandler(SignUpHandler.class,clientFrame,clientFrame.getSignUpButton());
 		this.signInHandler = this.createUiHandler(SignInHandler.class,clientFrame,clientFrame.getSignInButton());
+		this.uploadHandler = this.createUiHandler(UploadHandler.class,clientFrame,clientFrame.getUploadButton());
 
 	}
 	
@@ -140,5 +148,10 @@ public class Client {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+
+	public UploadResponseManager getFileUploadedManager() {
+		return fileUploadedManager;
 	}
 }

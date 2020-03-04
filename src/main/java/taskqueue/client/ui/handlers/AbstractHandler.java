@@ -43,7 +43,7 @@ public abstract class AbstractHandler implements ActionListener {
 		return this.client;
 	}
 
-	public JFrame getFrame() {
+	public AbstractClientFrame getFrame() {
 		return frame;
 	}
 
