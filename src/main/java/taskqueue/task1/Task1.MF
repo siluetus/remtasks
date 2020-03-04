@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: taskqueue.task1.RunTask1
+
+Name: taskqueue/task1/
+Sealed: true
+
