@@ -14,6 +14,10 @@ public class JsonReplyList<V> extends ArrayList<V> implements JsonReply {
 		if(v instanceof String) {
 			return super.add((V)new JsonReplyString(v.toString()));
 		}
+		
+		if(v instanceof Boolean) {
+			return super.add((V)new JsonReplyBool((Boolean) v));
+		}		
 		return super.add(v);
 	}
 

@@ -3,15 +3,23 @@ package taskqueue.client.response.json;
 import java.util.HashMap;
 
 
-public class JsonReplyMap<K,V> extends HashMap<K,V> implements JsonReply {
+public class JsonReplyMap<V> extends HashMap<String,V> implements JsonReply {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public void put(K k,String v) {
-		this.put(k, (V)(new JsonReplyString(v)));
+	public V put(String k, V v) {
+		if(v instanceof String) {
+			return super.put(k,((V) new JsonReplyString((String) v)));
+		}
+		
+		if(v instanceof Boolean) {
+			return super.put(k,((V) new JsonReplyBool((Boolean) v)));
+		}		
+		
+		return super.put(k, v);
 	}
 
 }

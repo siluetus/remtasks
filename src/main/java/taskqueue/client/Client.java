@@ -21,6 +21,7 @@ public class Client {
 	protected RunClient runner;
 	protected HttpClient httpClient;
 	protected String clientID;
+	protected Boolean admin;
 	protected String serverBaseURI;
 	protected SignedUpResponseManager signedUpManager;
 	
@@ -134,5 +135,10 @@ public class Client {
 
 	public void setSignedUpManager(SignedUpResponseManager signedUpManager) {
 		this.signedUpManager = signedUpManager;
+	}
+
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 }

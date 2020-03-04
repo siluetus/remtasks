@@ -14,5 +14,6 @@ public class SignedUpResponseManager extends AbstractResponseManager {
 	public void manage(AbstractResponseMapper responseMapper) {
 		SignedUpResponseMapper signedUpResp = (SignedUpResponseMapper)  responseMapper;
 		this.client.setClientID(signedUpResp.getClientID());
+		this.client.setAdmin(signedUpResp.isAdmin());
 	}
 }

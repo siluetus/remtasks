@@ -11,8 +11,8 @@ public class JsonReplyString implements JsonReply,Serializable,Comparable<JsonRe
 	
 	protected String str;
 	
-	public JsonReplyString(String string) {
-		this.str = string;
+	public JsonReplyString(String v) {
+		this.str = v;
 	}
 	public String toString() {
 		return str;
