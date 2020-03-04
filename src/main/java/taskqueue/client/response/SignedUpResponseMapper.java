@@ -4,7 +4,7 @@ import taskqueue.client.response.json.JsonReply;
 import taskqueue.client.response.json.JsonReplyList;
 import taskqueue.client.response.json.JsonReplyString;
 
-public class SingUpResponseMapper extends AbstractResponseMapper {
+public class SignedUpResponseMapper extends AbstractResponseMapper {
 
 	protected String newClientID;
 	
@@ -18,8 +18,13 @@ public class SingUpResponseMapper extends AbstractResponseMapper {
 				}
 			}
 		}
-		
+		this.proxy.setResponseMapper(this);
 		return;
+	}
+	
+	
+	public String getClientID() {
+		return this.newClientID;
 	}
 	
 	

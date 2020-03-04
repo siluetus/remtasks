@@ -52,7 +52,7 @@ public class Frame extends AbstractClientFrame {
 		JPanel panelFiles = new JPanel();
 		JPanel panelTasks = new JPanel();
 		JPanel panelWorks = new JPanel();
-		//файлы, задачи, работы - вкладки (мб цепочки задач) 
+		//С„Р°Р№Р»С‹, Р·Р°РґР°С‡Рё, СЂР°Р±РѕС‚С‹ - РІРєР»Р°РґРєРё (РјР± С†РµРїРѕС‡РєРё Р·Р°РґР°С‡) 
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(0, 300, 500, 60);
@@ -128,7 +128,7 @@ public class Frame extends AbstractClientFrame {
 			}
 		});
 		
-		// вкладка файлов
+		// РІРєР»Р°РґРєР° С„Р°Р№Р»РѕРІ
 		
 		
 		//panelFiles.add(list);

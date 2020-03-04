@@ -8,6 +8,7 @@ import org.eclipse.jetty.http.HttpMethod;
 
 import org.json.simple.parser.JSONParser;
 
+import taskqueue.client.response.AbstractResponseManager;
 import taskqueue.client.response.AbstractResponseMapper;
 import taskqueue.client.response.json.ContainerFactory;
 import taskqueue.client.response.json.JsonReply;
@@ -22,6 +23,7 @@ public abstract class AbstractRequest implements Runnable {
 	protected ContainerFactory jsoncontainerfactory = new ContainerFactory();
 	protected AbstractResponseMapper responseMapper;
 	protected String localPath = "/";
+	protected AbstractResponseManager manager;
 	
 	
 	public String getLocalPath() {
@@ -44,13 +46,16 @@ public abstract class AbstractRequest implements Runnable {
 			}
 			content = response.getContentAsString();
 			JsonReply reply = (JsonReply) this.parser.parse(content,jsoncontainerfactory);
-			this.responseMapper.responseUINormal(reply);
+			responseMapper.responseUINormal(reply);
 			
 
 		} catch (Exception e) {
-			this.responseMapper.responseUIError(e.getMessage());
+			responseMapper.responseUIError(e.getMessage(),null);
 		}
-		this.responseMapper.invokeProxyAction();
+		if(this.manager instanceof AbstractResponseManager) {
+			manager.manage(responseMapper);
+		}
+		responseMapper.invokeProxyAction();
 		
 	}
 	
@@ -61,5 +66,13 @@ public abstract class AbstractRequest implements Runnable {
 	
 	public AbstractResponseMapper getResponseMapper() {
 		return this.responseMapper;
+	}
+
+	public AbstractResponseManager getManager() {
+		return manager;
+	}
+
+	public void setManager(AbstractResponseManager manager) {
+		this.manager = manager;
 	}
 }

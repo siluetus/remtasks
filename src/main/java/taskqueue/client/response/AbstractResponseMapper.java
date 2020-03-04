@@ -7,7 +7,7 @@ public abstract class AbstractResponseMapper {
 
 	protected AbstractUIProxy proxy;
 	protected AbstractUIProxy errorProxy;
-	protected String error;
+	protected String error = null;
 	
 	public abstract void responseUINormal(JsonReply json);
 	
@@ -17,17 +17,19 @@ public abstract class AbstractResponseMapper {
 	}
 	
 	public void invokeProxyAction() {
-		javax.swing.SwingUtilities.invokeLater(this.error==null?this.errorProxy:this.proxy);
+		javax.swing.SwingUtilities.invokeLater(this.error==null?this.proxy:this.errorProxy);
 		this.proxy = null;
 		this.errorProxy = null;
 	}
 	
-	public void setUIProxy(AbstractUIProxy proxy) {
+	public AbstractResponseMapper setUIProxy(AbstractUIProxy proxy) {
 		this.proxy = proxy;
+		return this;
 	}
 
-	public void setErrorProxy(AbstractUIProxy errorProxy) {
+	public AbstractResponseMapper setErrorProxy(AbstractUIProxy errorProxy) {
 		this.errorProxy = errorProxy;
+		return this;
 	}
 
 	public String getError() {

@@ -9,8 +9,12 @@ public class JsonReplyList<V> extends ArrayList<V> implements JsonReply {
 	 */
 	private static final long serialVersionUID = 6954566321352503369L;
 	
-	public void add(String V) {
-		this.add((V)(new JsonReplyString(V)));
+	
+	public boolean add(V v) {
+		if(v instanceof String) {
+			return super.add((V)new JsonReplyString(v.toString()));
+		}
+		return super.add(v);
 	}
 
 }

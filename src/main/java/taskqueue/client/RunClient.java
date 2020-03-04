@@ -15,7 +15,10 @@ import org.eclipse.jetty.client.api.Request;
 
 import taskqueue.client.request.AbstractRequest;
 import taskqueue.client.ui.Frame;
-import taskqueue.client.ui.Frame2;
+
+
+
+
 /**
  * @author BingoUser
  *
@@ -66,7 +69,7 @@ public class RunClient {
 								public void run() {
 									
 									try {
-										RunClient.this.httpClient.stop();
+										RunClient.this.client.stopHttpClient();
 										RunClient.this.running = false;
 										frame.dispose();
 										RunClient.this.addRunner(this);

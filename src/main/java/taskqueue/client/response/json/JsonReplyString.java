@@ -12,7 +12,7 @@ public class JsonReplyString implements JsonReply,Serializable,Comparable<JsonRe
 	protected String str;
 	
 	public JsonReplyString(String string) {
-		
+		this.str = string;
 	}
 	public String toString() {
 		return str;
