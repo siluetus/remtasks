@@ -12,8 +12,8 @@ import org.eclipse.jetty.server.Request;
 
 import org.json.simple.JSONArray;
 
-import taskqueue.server.Client;
 import taskqueue.server.Server;
+import taskqueue.server.client.Client;
 
 
 public class ListClients extends AbstractHandler {

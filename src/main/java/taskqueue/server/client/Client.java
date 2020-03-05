@@ -1,9 +1,12 @@
-package taskqueue.server;
+package taskqueue.server.client;
+
+import taskqueue.server.TaskCollection;
 
 public class Client {
 
 	protected java.util.UUID uuid;
 	protected boolean admin = false;
+	protected TaskCollection clientTasks;
 	
 	
 	public Client(java.util.UUID uuid) {

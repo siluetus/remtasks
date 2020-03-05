@@ -1,4 +1,4 @@
-package taskqueue.server;
+package taskqueue.server.client;
 
 public class ClientFolders {
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import taskqueue.server.Server;
-import taskqueue.server.Client;
+import taskqueue.server.client.Client;
 
 import org.json.simple.JSONObject;;
 

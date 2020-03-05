@@ -13,15 +13,19 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.json.simple.JSONAware;
 
 import simple.embedding.jetty.HelloWorld;
+import taskqueue.server.client.Client;
+
 import org.eclipse.jetty.util.log.Log;
 
 public class Server extends org.eclipse.jetty.server.Server {
 	
 	protected ClientCollection clientCollection;
+	protected 
 	
 	Server(){
 		super();
 		this.clientCollection = new ClientCollection();
+		
 	}
 	 
 	public void initializeContexts() {
