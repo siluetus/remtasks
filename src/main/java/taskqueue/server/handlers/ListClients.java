@@ -27,6 +27,7 @@ public class ListClients extends AbstractHandler {
 		
 		
 		Client client = this.getClient(request);
+		
 		if(!(client instanceof Client) || !client.isAdmin()) {
 			this.respondHTTP400(response,"Admin only");
 			baseRequest.setHandled(true);
@@ -34,6 +35,7 @@ public class ListClients extends AbstractHandler {
 		}
 		
 		JSONArray answer = new JSONArray();
+		
 		answer.addAll(Collections.list(
 				((ClientManager) this.getServer().getBean(ClientManager.class)).getAllClients())
 			);

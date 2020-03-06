@@ -2,20 +2,20 @@ package taskqueue.server.manager;
 
 import org.eclipse.jetty.util.component.LifeCycle;
 
-public abstract class AbstractManager implements LifeCycle {
+public abstract class AbstractDummyManager implements LifeCycle {
 
 	protected int status =0;
-	
+ 
 	
 	public abstract void doStart() throws Exception;
 	
+	
 	public void start() throws Exception {
 		this.status = 1;
-		doStart();
 	}
-
+	
 	public void stop() throws Exception {
-		
+		status |= 4;
 	}
 
 	public boolean isRunning() {

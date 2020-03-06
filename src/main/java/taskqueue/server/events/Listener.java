@@ -1,5 +1,6 @@
 package taskqueue.server.events;
 
 public interface Listener {
-	public void actionPerformed(Event e);
+	
+	public void processEvent(Event e);
 }

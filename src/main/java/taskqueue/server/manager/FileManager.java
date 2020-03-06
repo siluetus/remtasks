@@ -6,7 +6,7 @@ import java.util.Hashtable;
 
 import taskqueue.server.tasks.ManagedFile;
 
-public class FileManager extends AbstractManager {
+public class FileManager extends AbstractDummyManager {
 	
 	public Dictionary<String,ManagedFile> managedFiles;
 	

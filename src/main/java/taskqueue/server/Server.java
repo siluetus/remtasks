@@ -15,7 +15,10 @@ import org.json.simple.JSONAware;
 
 import simple.embedding.jetty.HelloWorld;
 import taskqueue.server.client.Client;
+import taskqueue.server.events.CreateClientFolderOnRegister;
+import taskqueue.server.events.Listener;
 import taskqueue.server.manager.ClientManager;
+import taskqueue.server.manager.FileManager;
 
 import org.eclipse.jetty.util.log.Log;
 
@@ -31,12 +34,22 @@ public class Server extends org.eclipse.jetty.server.Server {
 	}
 	 
 	public void initializeContexts() {
+		
+		// Инициализируем менеджеры и события
 		ClientManager cm = new ClientManager();
+		FileManager fm = new FileManager();
+		
+		taskqueue.server.events.Listener clientRegisteredListener = new CreateClientFolderOnRegister(fm);
+			
+		
+		
 		this.addBean(cm);
+		this.addBean(fm);
 		
 		Client admin = cm.getClient(cm.registerClient());
 		admin.flyUpToGod();
 		Log.getLog().info("Admin id is "+admin.getId().toString());
+		
 		
 		ContextHandlerCollection collection = new ContextHandlerCollection();
 		
@@ -69,6 +82,6 @@ public class Server extends org.eclipse.jetty.server.Server {
 		context.setHandler(handler);
 		collection.addHandler(context);
 		return context;
-		
 	}
+
 }

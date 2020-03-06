@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import taskqueue.server.client.Client;
 
-public class ClientManager extends AbstractManager {
+public class ClientManager extends AbstractManagerWithEvents {
 	
 	protected Dictionary<UUID,Client> clients;
 	
@@ -34,8 +34,20 @@ public class ClientManager extends AbstractManager {
 	}
 
 	@Override
-	public void doStart() throws Exception {
-		Thread.sleep(3);
-		this.status |= 2;
+	public void doStart()  throws Exception {
+		
+		if(this.eventThread.isAlive()) {
+			this.status |= 2;
+			this.notifyListeners(AbstractManagerWithEvents.LifeCycleEvent.STARTED, null);
+		}
 	}
+
+	@Override
+	public void doStop() throws Exception {
+		return;
+	}
+
+	
+	
+	
 }
