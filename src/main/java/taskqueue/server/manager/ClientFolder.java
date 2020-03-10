@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.UUID;
 import org.eclipse.jetty.util.IO;
@@ -42,6 +43,14 @@ public class ClientFolder {
 		file.setClientID(UUID.fromString(clientID));
 		this.clientFiles.put(filename, file);
 		return file;
+	}
+	
+	public  Enumeration<String> getClientFiles(){
+		return this.clientFiles.keys();
+	}
+	
+	public ClientFile getClientFile(String filename) {
+		return this.clientFiles.get(filename);
 	}
 	
 }

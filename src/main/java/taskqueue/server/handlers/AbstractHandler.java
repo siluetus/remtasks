@@ -25,6 +25,9 @@ public abstract class AbstractHandler extends org.eclipse.jetty.server.handler.A
 	
 	protected Client getClient(HttpServletRequest request) {
 		String clientID = request.getHeader("ClientID");
+		if(org.eclipse.jetty.util.StringUtil.isEmpty(clientID)) {
+			return null;
+		}
 		Client client = ((ClientManager) this.getServer().getBean(ClientManager.class)).getClient(clientID);
 		return client;
 	}
