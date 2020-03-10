@@ -94,8 +94,8 @@ public class RunServer {
 		int port = getPort(args, "jetty.http.port", 8080);
 		Server server = createServer(port);
 		//server.setHandler(new HelloWorld());
-		server.start();
 		server.initializeContexts();
+		server.start();
 		server.join();
 	}
 

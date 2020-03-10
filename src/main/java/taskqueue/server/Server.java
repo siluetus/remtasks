@@ -35,12 +35,11 @@ public class Server extends org.eclipse.jetty.server.Server {
 	 
 	public void initializeContexts() {
 		
-		// Инициализируем менеджеры и события
 		ClientManager cm = new ClientManager();
-		FileManager fm = new FileManager();
+		FileManager fm = new FileManager("clientData");
 		
 		taskqueue.server.events.Listener clientRegisteredListener = new CreateClientFolderOnRegister(fm);
-			
+		cm.addUserEventListener(clientRegisteredListener);	
 		
 		
 		this.addBean(cm);

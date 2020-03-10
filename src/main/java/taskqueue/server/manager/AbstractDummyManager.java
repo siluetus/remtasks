@@ -12,6 +12,7 @@ public abstract class AbstractDummyManager implements LifeCycle {
 	
 	public void start() throws Exception {
 		this.status = 1;
+		doStart();
 	}
 	
 	public void stop() throws Exception {

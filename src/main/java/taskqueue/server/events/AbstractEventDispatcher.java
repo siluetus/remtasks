@@ -1,5 +1,6 @@
 package taskqueue.server.events;
 
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -41,7 +42,12 @@ public abstract class AbstractEventDispatcher implements Runnable, Consumer<List
 		
 	}
 	public void accept(taskqueue.server.events.Listener l) {
-		l.processEvent(currentEvent);
+		try {
+			Method m = l.getClass().getMethod("processEvent", this.currentEvent.getClass());
+			m.invoke(l, this.currentEvent);
+		} catch (Exception e) {
+			
+		}
 	}	
 	
 	

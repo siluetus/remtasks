@@ -28,13 +28,22 @@ public abstract class AbstractManagerWithEvents extends AbstractEventDispatcher 
 		this.notifyListeners(LifeCycleEvent.FAILURE, t);
 	}
 	
+	public void run() {
+		this.status |= 2;
+		super.run();
+	}
 	
 	public void start() throws Exception {
+		this.addLifeCycleListener(new ManagerLifeCycleListener(this.getClass().getName()));
 		eventThread = new Thread(this);
 		eventThread.setName("Events-"+this.getClass().toString());
 		this.status = 1;
 		this.notifyListeners(AbstractManagerWithEvents.LifeCycleEvent.STARTING,null);
+		this.eventThread.start();
 		doStart();
+		if(this.eventThread.isAlive()) {
+			this.notifyListeners(AbstractManagerWithEvents.LifeCycleEvent.STARTED, null);
+		}
 	}
 	
 	

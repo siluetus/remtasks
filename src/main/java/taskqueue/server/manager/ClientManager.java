@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 import taskqueue.server.client.Client;
+import taskqueue.server.events.ClientRegisteredEvent;
 
 public class ClientManager extends AbstractManagerWithEvents {
 	
@@ -19,6 +20,7 @@ public class ClientManager extends AbstractManagerWithEvents {
 		UUID uuid = UUID.randomUUID();
 		Client client = new Client(uuid);
 		this.clients.put(uuid, client);
+		this.fireEvent(new ClientRegisteredEvent(client));
 		return uuid.toString();
 	}
 	
@@ -35,11 +37,7 @@ public class ClientManager extends AbstractManagerWithEvents {
 
 	@Override
 	public void doStart()  throws Exception {
-		
-		if(this.eventThread.isAlive()) {
-			this.status |= 2;
-			this.notifyListeners(AbstractManagerWithEvents.LifeCycleEvent.STARTED, null);
-		}
+
 	}
 
 	@Override
