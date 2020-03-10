@@ -36,9 +36,17 @@ public class Frame extends AbstractClientFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	JPanel panelFiles;
+	JPanel panelTasks;
+	JPanel panelWorks;
+	JList<String> taskList;
 	
-	
+	JTabbedPane tabbedPane;
 	public void initFrame() {
+		
+		
+		
+		
 		
 		JPanel panel = new JPanel() {
 			@Override
@@ -49,12 +57,11 @@ public class Frame extends AbstractClientFrame {
 				//g.fillRoundRect(x, y, 5, 5, 5, 5);
 			}
 		};
-		JPanel panelFiles = new JPanel();
-		JPanel panelTasks = new JPanel();
-		JPanel panelWorks = new JPanel();
-		//файлы, задачи, работы - вкладки (мб цепочки задач) 
+		panelFiles = new JPanel();
+		panelTasks = new JPanel();
+		panelWorks = new JPanel();
 		
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(0, 300, 500, 60);
 		tabbedPane.add("Init", panel);
 		tabbedPane.add("Files", panelFiles);
@@ -93,6 +100,9 @@ public class Frame extends AbstractClientFrame {
 		startTask2.setMinimumSize(new Dimension(40, 20));*/
 		
 		final DefaultListModel<String> listM = new DefaultListModel<String>();
+		taskList = new JList<String>(listM);
+		panelFiles.add(taskList);
+				
 		JLabel exQueue = new JLabel();
 		exQueue.setBackground(Color.CYAN);
 		JLabel waitQueue = new JLabel();
@@ -117,32 +127,20 @@ public class Frame extends AbstractClientFrame {
 		 x = 50;
 		 y = 50;
 		 
-//		uploadButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//			
-//				JFileChooser fchooser = fpicker.getFileChooser();
-//				final File f = fchooser.getSelectedFile();
-//				listM.addElement(f.getAbsolutePath());
-//				
-//				repaint();
-//			}
-//		});
-		
-		// вкладка файлов
+		uploadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				JFileChooser fchooser = fpicker.getFileChooser();
+				final File f = fchooser.getSelectedFile();
+				listM.addElement(f.getAbsolutePath());
+				repaint();
+			}
+		});
 		
 		
 		//panelFiles.add(list);
 		/*startTask2.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				//try {
-					//dos.writeInt(2);
-//				} catch (IOException ex) {
-//					ex.printStackTrace();
-//					;
-//				}
-			}
-		}); */
+		*/
 
 		panel.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
