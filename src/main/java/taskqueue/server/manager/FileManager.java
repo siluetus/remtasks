@@ -90,6 +90,10 @@ public class FileManager extends AbstractDummyManager {
 		return newfile;
 	}
 	
+	public ClientFile getFileById(UUID fileID) {
+		return this.clientFile.get(fileID);
+	}
+	
 	
 	
 }

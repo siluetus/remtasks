@@ -1,6 +1,6 @@
 package taskqueue.client.response;
 
-import taskqueue.client.response.json.JsonReply;
+import taskqueue.json.JsonReply;
 import taskqueue.client.ui.proxy.AbstractUIProxy;
 
 public abstract class AbstractResponseMapper {

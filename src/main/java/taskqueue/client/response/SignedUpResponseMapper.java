@@ -1,10 +1,10 @@
 package taskqueue.client.response;
 
-import taskqueue.client.response.json.JsonReply;
-import taskqueue.client.response.json.JsonReplyBool;
-import taskqueue.client.response.json.JsonReplyList;
-import taskqueue.client.response.json.JsonReplyMap;
-import taskqueue.client.response.json.JsonReplyString;
+import taskqueue.json.JsonReply;
+import taskqueue.json.JsonReplyBool;
+import taskqueue.json.JsonReplyList;
+import taskqueue.json.JsonReplyMap;
+import taskqueue.json.JsonReplyString;
 
 public class SignedUpResponseMapper extends AbstractResponseMapper {
 

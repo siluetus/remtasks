@@ -1,6 +1,7 @@
 package taskqueue.server.handlers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import taskqueue.server.manager.FileManager;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
 public class UploadHandler extends AbstractHandler {
@@ -45,37 +47,13 @@ public class UploadHandler extends AbstractHandler {
 			JSONObject fileanswer;
 			if(request.getMethod()=="PUT") {
 				
-				
-				String newFileName = request.getHeader("Filename");
-				
-				if(org.eclipse.jetty.util.StringUtil.isEmpty(newFileName)) {
-					throw new Exception("No file name");
-				}
-				
-				
-				ClientFile clientfile = clientfolder.putFile(request.getInputStream(), newFileName);
-				
-				fileanswer = new JSONObject();
-				
-				fileanswer.put("FileID", clientfile.getUuid().toString());
-				fileanswer.put("FileName",clientfile.getFileName());
-				answer.add(fileanswer);
-				
-
+				answer.add(this.putfile(clientfolder
+						,request.getInputStream()
+						,request.getHeader("Filename")));
 			}
 			
 			if(request.getMethod()=="GET") {
-				
-				Enumeration<String> files = clientfolder.getClientFiles();
-				
-				while(files.hasMoreElements()) {
-					ClientFile clientfile = clientfolder.getClientFile(files.nextElement());
-					fileanswer = new JSONObject();
-					fileanswer.put("FileID", clientfile.getUuid().toString());
-					fileanswer.put("FileName",clientfile.getFileName());
-					answer.add(fileanswer);
-				}
-				
+				answer = (JSONArray)this.getfilelist(clientfolder);
 			}
 			
 			this.respondJSON(answer, response);
@@ -88,6 +66,41 @@ public class UploadHandler extends AbstractHandler {
 			logger.info(String.format(" File uploading error (%s) type %s", e.getMessage(),e.getClass().toString()));
 			return;
 		}
+	}
+	
+	
+	public JSONAware putfile(ClientFolder clientfolder,InputStream is, String newFileName) throws Exception {
+		
+		
+		if(org.eclipse.jetty.util.StringUtil.isEmpty(newFileName)) {
+			throw new Exception("No file name");
+		}
+		
+		
+		ClientFile clientfile = clientfolder.putFile(is, newFileName);
+		
+		JSONObject fileanswer = new JSONObject();
+		
+		fileanswer.put("FileID", clientfile.getUuid().toString());
+		fileanswer.put("FileName",clientfile.getFileName());
+		
+		return fileanswer;
+		
+	}
+	
+	public JSONAware getfilelist(ClientFolder clientfolder) {
+		JSONArray answer = new JSONArray();
+		Enumeration<String> files = clientfolder.getClientFiles();
+		
+		while(files.hasMoreElements()) {
+			ClientFile clientfile = clientfolder.getClientFile(files.nextElement());
+			JSONObject fileanswer = new JSONObject();
+			fileanswer.put("FileID", clientfile.getUuid().toString());
+			fileanswer.put("FileName",clientfile.getFileName());
+			answer.add(fileanswer);
+		}
+		
+		return answer;
 	}
 
 }

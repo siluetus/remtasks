@@ -71,6 +71,10 @@ public class Server extends org.eclipse.jetty.server.Server {
 		this.createContext(collection,
 				new taskqueue.server.handlers.UploadHandler(),
 				"/upload");
+
+		this.createContext(collection,
+				new taskqueue.server.handlers.WorksHandler(),
+				"/works");		
 		
 		this.setHandler(collection);
 	}
