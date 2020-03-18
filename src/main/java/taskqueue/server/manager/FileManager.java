@@ -57,7 +57,11 @@ public class FileManager extends AbstractDummyManager {
 	}
 	
 	public ClientFolder getClientFolder(AbstractClient client) {
-		return this.clientFolders.get(client.getId());
+		return this.getClientFolder(client.getId());
+	}
+	
+	public ClientFolder getClientFolder(UUID clientID) {
+		return this.clientFolders.get(clientID);
 	}
 	
 	public void setFailed(Throwable t) {
@@ -85,6 +89,7 @@ public class FileManager extends AbstractDummyManager {
 		UUID fileUUID = UUID.randomUUID();
 		ClientFile newfile = new ClientFile(this);
 		newfile.setUuid(fileUUID);
+		newfile.setFullPath(filename);
 		this.clientFile.put(fileUUID, newfile);
 		return newfile;
 	}

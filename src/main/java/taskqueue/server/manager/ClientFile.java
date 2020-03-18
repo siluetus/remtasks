@@ -11,6 +11,7 @@ public class ClientFile {
 	 protected UUID clientID;
 	 protected String fileName;
 	 protected String fileType;
+	 protected String fullPath;
 	 protected boolean isShared = false;
 	 
 	 ClientFile(FileManager fm){
@@ -39,6 +40,14 @@ public class ClientFile {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public String getFullPath() {
+		return fullPath;
+	}
+
+	public void setFullPath(String fullPath) {
+		this.fullPath = fullPath;
 	}
 
 	public void setFileType(String fileType) {
