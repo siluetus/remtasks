@@ -46,7 +46,6 @@ public class WorksManager extends AbstractManagerWithEvents implements ClientThr
 	public ClientThread createClientThread() {
 		ClientWorkThread ct = new ClientWorkThread();
 		ct.addUserEventListener(new ClientThreadListener(this));
-		ct.start();
 		return ct;
 	}
 	

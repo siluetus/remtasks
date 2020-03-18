@@ -8,5 +8,11 @@ public interface ClientThread {
 	public int getQueueSize();
 	
 	public void queueWork(Work work);
+	
+	public void setThreadName(String name);
+	
+	public void setThreadNum(byte num);
+
+	public void start();
 
 }

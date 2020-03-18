@@ -83,7 +83,10 @@ public class UploadHandler extends AbstractHandler {
 		
 		fileanswer.put("FileID", clientfile.getUuid().toString());
 		fileanswer.put("FileName",clientfile.getFileName());
-		
+		org.eclipse.jetty.util.log.Log.getLogger(this.getClass()).info(
+				String.format("Uploaded file %s clietnID %s",
+						clientfile.getUuid().toString(),
+						clientfile.getClientID().toString()));
 		return fileanswer;
 		
 	}

@@ -11,7 +11,6 @@ public class RunTask1 {
 			e.printStackTrace();
 		}
 		System.out.println("End task 1");
-
 	}
 
 }

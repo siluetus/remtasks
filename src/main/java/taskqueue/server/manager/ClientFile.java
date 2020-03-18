@@ -1,6 +1,8 @@
 package taskqueue.server.manager;
 
 import java.util.UUID;
+import org.eclipse.jetty.util.StringUtil;
+
 
 public class ClientFile {
 	
@@ -52,8 +54,7 @@ public class ClientFile {
 	}
 
 	public boolean isJar() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getFileName().endsWith(".jar");
 	}
 
 	public boolean isShared() {

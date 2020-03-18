@@ -41,13 +41,16 @@ public class Server extends org.eclipse.jetty.server.Server {
 		ClientManager cm = new ClientManager();
 		FileManager fm = new FileManager("clientData");
 		WorksManager wm = new WorksManager();
+		WorksEventListener wel = new WorksEventListener(wm);
+		wel.setClientManager(cm);
 		
 		cm.addUserEventListener(new ClientEventListener(fm));	
-		wm.addUserEventListener(new WorksEventListener(wm));
+		wm.addUserEventListener(wel);
 		
 		
 		this.addBean(cm);
 		this.addBean(fm);
+		this.addBean(wm);
 		
 		Client admin = cm.getClient(cm.registerClient());
 		admin.flyUpToGod();

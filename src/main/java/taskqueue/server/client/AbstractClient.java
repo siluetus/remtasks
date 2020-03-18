@@ -14,6 +14,7 @@ public abstract class AbstractClient {
 
 	
 	public AbstractClient(java.util.UUID uuid) {
+		this.uuid = uuid; 
 	}
 	
 	

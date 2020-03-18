@@ -12,7 +12,7 @@ import taskqueue.server.TaskCollection;
 
 public class Client extends AbstractClient{ 
 
-	protected int maxThreads;
+	protected int maxThreads=3;
 	
 	protected boolean admin = false;
 	
@@ -52,6 +52,9 @@ public class Client extends AbstractClient{
 		if((foundThread == null || foundThread.isWorking()) && threads.size()<maxThreads && threadcreator!=null ) {
 			foundThread = threadcreator.createClientThread();
 			threads.add(foundThread);
+			foundThread.setThreadNum((byte)threads.size());
+			foundThread.setThreadName(this.getId().toString());
+			foundThread.start();
 		}
 		
 		return foundThread;

@@ -16,17 +16,13 @@ public class WorksEventListener implements Listener {
 	protected ClientManager cm;
 	protected Logger logger;
 	
-	
-	public WorksEventListener() {
-		this.logger = org.eclipse.jetty.util.log.Log.getLogger(this.getClass());
-	}
-	
 	public void setClientManager(ClientManager cm) {
 		this.cm = cm;
 	}
 	
 	public WorksEventListener(ClientThreadFactory clientThreadFactory) {
 		this.clientThreadFactory = clientThreadFactory;
+		this.logger = org.eclipse.jetty.util.log.Log.getLogger(this.getClass());
 	}
 
 	public void processEvent(ClientWorkAdded e) {
@@ -34,18 +30,20 @@ public class WorksEventListener implements Listener {
 			Client client = (Client) e.getClient();
 			Work work = e.getWork();
 			ClientThread thread = client.findThread(this.clientThreadFactory);
+			
 			thread.queueWork(work);
 		}
 	}
 	
 	public void processEvent(ClientWorkStarted e) {
 		Work work = e.getWork();
-		logger.info(String.format("Strating work with GUID %s client id %s", work.getClientID().toString()));
+		logger.info(String.format("Strating work with GUID %s client id %s",work.getUuid().toString(), work.getClientID().toString()));
 	}
 	
 	public void processEvent(ClientWorkDone e) {
 		Work work = e.getWork();
 		work.setDone(true);
 		cm.fireEvent(e);
+		logger.info(String.format("Work was Done with GUID %s client id %s", work.getUuid().toString(), work.getClientID().toString()));
 	}
 }

@@ -8,6 +8,7 @@ public class ClientWorkThread extends AbstractEventDispatcher implements ClientT
 	protected int state = 0;
 	protected Thread thread;
 	protected Throwable error;
+	protected byte num =0;
 	
 	public ClientWorkThread(){
 		thread = new Thread(this);
@@ -41,6 +42,10 @@ public class ClientWorkThread extends AbstractEventDispatcher implements ClientT
 		this.state &= ~1; // removing working state bit
 	}
 	
+	public void run() {
+		super.run();
+	}
+	
 	public int getQueueSize() {
 		return this.events.size();
 	}
@@ -48,6 +53,14 @@ public class ClientWorkThread extends AbstractEventDispatcher implements ClientT
 	public void queueWork(Work work) {
 		work.setQueued(true);
 		this.fireEvent(new ClientWorkQueued(work));
+	}
+
+	public void setThreadName(String name) {
+		this.thread.setName(String.format("Client-%s-%d", name, this.num));
+	}
+
+	public void setThreadNum(byte num) {
+		this.num = num;
 	}
 
 }

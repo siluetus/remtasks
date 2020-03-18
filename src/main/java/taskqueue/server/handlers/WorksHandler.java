@@ -43,9 +43,10 @@ public class WorksHandler extends AbstractHandler {
 		}
 		
 		WorksManager worksManager = this.getServer().getBean(WorksManager.class);
-		FileManager fileManager = this.getBean(FileManager.class);
+		FileManager fileManager = this.getServer().getBean(FileManager.class);
 		JSONArray answer = new JSONArray();
 		try {
+			
 			if(request.getMethod()=="POST") {
 
 				JsonReply requestBody = this.readJSONrequest(request);  
@@ -55,17 +56,23 @@ public class WorksHandler extends AbstractHandler {
 						JsonReply rep = iterator.next();
 						if(rep instanceof JsonReplyString) {
 							UUID fileID = UUID.fromString(((JsonReplyString) rep).toString());
-							answer.add(this.addWork(fileID, client, fileManager.getFileById(fileID), worksManager));
+							ClientFile cf = fileManager.getFileById(fileID);
+							answer.add(this.addWork(fileID, client, cf , worksManager));
 						}
 					}
+					
+					this.respondJSON(answer, response);
+					baseRequest.setHandled(true);
+					return;
 				}
 				 
 			}
+			
 		
 		}catch(Exception e) {
 			this.respondHTTP400(response, String.format("%s %s", e.getClass().toString(), e.getMessage()));
 			baseRequest.setHandled(true);
-			logger.info(String.format("Work creation error %s of class %s", e.getMessage(),e.getClass().toString()));
+			logger.info(String.format("Work creation error %s of  %s", e.getMessage(),e.getClass().toString()));
 			return;
 		}
 		
