@@ -9,7 +9,6 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 import taskqueue.server.client.AbstractClient;
-import taskqueue.server.tasks.ManagedFile;
 
 public class FileManager extends AbstractDummyManager {
 	

@@ -1,10 +1,10 @@
 package taskqueue.server.client;
 
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
+import taskqueue.server.works.ClientWorkThread;
 
 import taskqueue.server.TaskCollection;
-import taskqueue.server.tasks.AbstractWork;
 
 public class Client extends AbstractClient{ 
 
@@ -12,6 +12,7 @@ public class Client extends AbstractClient{
 	protected boolean admin = false;
 	
 	
+	protected List<ClientWorkThread> list = new LinkedList<ClientWorkThread>();
 	
 	public Client(java.util.UUID uuid) {
 		super(uuid);
@@ -24,6 +25,13 @@ public class Client extends AbstractClient{
 	
 	public void flyUpToGod() {
 		this.admin = true;
+	}
+	
+	
+	public ClientWorkThread findThread() {
+		
+		
+		return null;
 	}
 	
 }

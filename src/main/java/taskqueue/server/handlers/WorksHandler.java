@@ -18,9 +18,9 @@ import taskqueue.json.JsonReplyList;
 import taskqueue.json.JsonReplyString;
 import taskqueue.server.client.Client;
 import taskqueue.server.manager.ClientFile;
-import taskqueue.server.manager.ClientWork;
 import taskqueue.server.manager.FileManager;
 import taskqueue.server.manager.WorksManager;
+import taskqueue.server.works.ClientWork;
 
 public class WorksHandler extends AbstractHandler {
 	
