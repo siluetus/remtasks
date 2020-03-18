@@ -56,7 +56,7 @@ public class RunClient {
 	        	 
 	            public void run() { 
 	  
-	            	frame.initFrame();
+	            	frame.initFrame2();
 	            	frame.setVisible(true);
 	            	frame.setRunner(RunClient.this);
 	            	RunClient.this.client.initHandlers(frame);

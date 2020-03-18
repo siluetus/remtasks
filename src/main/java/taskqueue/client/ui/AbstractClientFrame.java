@@ -2,6 +2,9 @@ package taskqueue.client.ui;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import taskqueue.client.RunClient;
@@ -22,6 +25,15 @@ public abstract class AbstractClientFrame extends JFrame {
 	protected JButton signUpButton;
 	protected JFilePicker fpicker;
 	protected JTextField signinTextField;
+	protected JPanel panelWorks;
+	
+	public abstract void initFrame();
+	
+	public void initFrame2() {
+		initFrame();
+		JTable works = new JTable();
+		panelWorks.add(works);
+	}
 	
 	
 	public void setRunner(RunClient runner) {

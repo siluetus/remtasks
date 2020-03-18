@@ -1,5 +1,6 @@
 package taskqueue.runjar;
 import java.io.File;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -11,6 +12,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		try {
+			
 		    File jarfile = new File("Run-Task1.jar");
 		    JarFile jar = new JarFile(jarfile);
 		    Manifest manifest = jar.getManifest();
@@ -19,6 +21,9 @@ public class Test {
 		    
 		    URL url = new URL("file", null, jarfile.getAbsolutePath());
 		    ClassLoader cl = new URLClassLoader(new URL[] {url});
+		    Class systemCls = cl.loadClass("System");
+		    Method sysSetOut = systemCls.getMethod("setOut",  new Class[] {PrintStream.class});
+		    //sysSetOut.invoke(systemCls, );
 		    Class mainClass = cl.loadClass(mainClassName);
 		    Method mainMethod = mainClass.getMethod("main", new Class[] {String[].class});
 		    String[] args2 = new String[0];

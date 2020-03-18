@@ -38,7 +38,7 @@ public class Frame extends AbstractClientFrame {
 	private static final long serialVersionUID = 1L;
 	JPanel panelFiles;
 	JPanel panelTasks;
-	JPanel panelWorks;
+	//JPanel panelWorks;
 	JList<String> taskList;
 	
 	JTabbedPane tabbedPane;
