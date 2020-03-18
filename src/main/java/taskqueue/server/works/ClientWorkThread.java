@@ -1,8 +1,9 @@
 package taskqueue.server.works;
 
 import taskqueue.server.events.AbstractEventDispatcher;
+import taskqueue.server.events.ClientWorkQueued;
 
-public class ClientWorkThread extends AbstractEventDispatcher {
+public class ClientWorkThread extends AbstractEventDispatcher implements ClientThread {
 
 	protected int state = 0;
 	protected Thread thread;
@@ -42,6 +43,11 @@ public class ClientWorkThread extends AbstractEventDispatcher {
 	
 	public int getQueueSize() {
 		return this.events.size();
+	}
+
+	public void queueWork(Work work) {
+		work.setQueued(true);
+		this.fireEvent(new ClientWorkQueued(work));
 	}
 
 }

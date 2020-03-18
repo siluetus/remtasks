@@ -20,7 +20,7 @@ import taskqueue.server.client.Client;
 import taskqueue.server.manager.ClientFile;
 import taskqueue.server.manager.FileManager;
 import taskqueue.server.manager.WorksManager;
-import taskqueue.server.works.ClientWork;
+import taskqueue.server.works.ClientWorkByJar;
 
 public class WorksHandler extends AbstractHandler {
 	
@@ -48,14 +48,14 @@ public class WorksHandler extends AbstractHandler {
 		try {
 			if(request.getMethod()=="POST") {
 
-				JsonReply body = this.readJSONrequest(request);  
-				if(body instanceof JsonReplyList) {
-					Iterator<JsonReply> iterator = ((JsonReplyList)body).iterator();
+				JsonReply requestBody = this.readJSONrequest(request);  
+				if(requestBody instanceof JsonReplyList) {
+					Iterator<JsonReply> iterator = ((JsonReplyList)requestBody).iterator();
 					while(iterator.hasNext()) {
 						JsonReply rep = iterator.next();
 						if(rep instanceof JsonReplyString) {
 							UUID fileID = UUID.fromString(((JsonReplyString) rep).toString());
-							this.addWork(fileID, client, fileManager.getFileById(fileID), worksManager);
+							answer.add(this.addWork(fileID, client, fileManager.getFileById(fileID), worksManager));
 						}
 					}
 				}
@@ -73,19 +73,20 @@ public class WorksHandler extends AbstractHandler {
 	}
 	
 	
-	public void addWork(UUID fileID, Client client, ClientFile cf, WorksManager worksManager) throws Exception {
+	public String addWork(UUID fileID, Client client, ClientFile cf, WorksManager worksManager) throws Exception {
 
 		if(!(cf.getClientID().equals(client.getId()) || cf.isShared())) {
 			throw new Exception(String.format("Acces is denied for user %s and file %s", fileID.toString(), client.getId().toString()));
 		}
 		
-		ClientWork cw = worksManager.createWorkFromJar(cf);
-		
-		
+		ClientWorkByJar cw = worksManager.createWorkFromJar(cf);
+		cw.setClientID(client.getId());
+		worksManager.queueWork(cw, client);
+		return cw.getUuid().toString();
 	}
 	
 	
-	public JSONObject work2Json(ClientWork clientWork) {
+	public JSONObject work2Json(ClientWorkByJar clientWork) {
 		return null;
 		
 	}

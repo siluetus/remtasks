@@ -4,13 +4,13 @@ import taskqueue.server.events.Event;
 
 public class WorkStarted implements Event {
 	
-	protected ClientWork work;
+	protected ClientWorkByJar work;
 	
-	WorkStarted(ClientWork work){
+	WorkStarted(ClientWorkByJar work){
 		this.work = work;
 	}
 
-	public ClientWork getWork() {
+	public ClientWorkByJar getWork() {
 		return work;
 	}
 	

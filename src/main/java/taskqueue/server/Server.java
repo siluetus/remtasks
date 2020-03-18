@@ -15,10 +15,13 @@ import org.json.simple.JSONAware;
 
 import simple.embedding.jetty.HelloWorld;
 import taskqueue.server.client.Client;
-import taskqueue.server.events.CreateClientFolderOnRegister;
+import taskqueue.server.events.ClientEventListener;
 import taskqueue.server.events.Listener;
+import taskqueue.server.events.WorksEventListener;
 import taskqueue.server.manager.ClientManager;
 import taskqueue.server.manager.FileManager;
+import taskqueue.server.manager.WorksManager;
+import taskqueue.server.works.ClientThreadFactory;
 
 import org.eclipse.jetty.util.log.Log;
 
@@ -37,9 +40,10 @@ public class Server extends org.eclipse.jetty.server.Server {
 		
 		ClientManager cm = new ClientManager();
 		FileManager fm = new FileManager("clientData");
+		WorksManager wm = new WorksManager();
 		
-		cm.addUserEventListener(new CreateClientFolderOnRegister(fm));	
-		//cm.addUserEventListener(new )
+		cm.addUserEventListener(new ClientEventListener(fm));	
+		wm.addUserEventListener(new WorksEventListener(wm));
 		
 		
 		this.addBean(cm);
