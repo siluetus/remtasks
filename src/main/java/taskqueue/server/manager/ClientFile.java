@@ -1,6 +1,8 @@
 package taskqueue.server.manager;
 
 import java.util.UUID;
+import org.eclipse.jetty.util.StringUtil;
+
 
 public class ClientFile {
 	
@@ -9,6 +11,7 @@ public class ClientFile {
 	 protected UUID clientID;
 	 protected String fileName;
 	 protected String fileType;
+	 protected boolean isShared = false;
 	 
 	 ClientFile(FileManager fm){
 		 this.fm = fm;
@@ -48,6 +51,18 @@ public class ClientFile {
 
 	public void setClientID(UUID clientID) {
 		this.clientID = clientID;
+	}
+
+	public boolean isJar() {
+		return this.getFileName().endsWith(".jar");
+	}
+
+	public boolean isShared() {
+		return isShared;
+	}
+
+	public void setShared(boolean isShared) {
+		this.isShared = isShared;
 	}
 
 }

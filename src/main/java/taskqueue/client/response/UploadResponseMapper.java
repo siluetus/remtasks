@@ -1,6 +1,6 @@
 package taskqueue.client.response;
 
-import taskqueue.client.response.json.JsonReply;
+import taskqueue.json.JsonReply;
 
 public class UploadResponseMapper extends AbstractResponseMapper {
 

@@ -9,7 +9,6 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 import taskqueue.server.client.AbstractClient;
-import taskqueue.server.tasks.ManagedFile;
 
 public class FileManager extends AbstractDummyManager {
 	
@@ -88,6 +87,10 @@ public class FileManager extends AbstractDummyManager {
 		newfile.setUuid(fileUUID);
 		this.clientFile.put(fileUUID, newfile);
 		return newfile;
+	}
+	
+	public ClientFile getFileById(UUID fileID) {
+		return this.clientFile.get(fileID);
 	}
 	
 	

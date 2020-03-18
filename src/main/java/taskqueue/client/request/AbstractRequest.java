@@ -10,8 +10,8 @@ import org.json.simple.parser.JSONParser;
 
 import taskqueue.client.response.AbstractResponseManager;
 import taskqueue.client.response.AbstractResponseMapper;
-import taskqueue.client.response.json.ContainerFactory;
-import taskqueue.client.response.json.JsonReply;
+import taskqueue.json.ContainerFactory;
+import taskqueue.json.JsonReply;
 
 
 public abstract class AbstractRequest implements Runnable {
@@ -47,7 +47,6 @@ public abstract class AbstractRequest implements Runnable {
 			content = response.getContentAsString();
 			JsonReply reply = (JsonReply) this.parser.parse(content,jsoncontainerfactory);
 			responseMapper.responseUINormal(reply);
-			
 
 		} catch (Exception e) {
 			responseMapper.responseUIError(e.getMessage(),null);

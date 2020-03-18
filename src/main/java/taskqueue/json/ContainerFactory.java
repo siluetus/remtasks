@@ -1,4 +1,4 @@
-package taskqueue.client.response.json;
+package taskqueue.json;
 
 import java.util.List;
 import java.util.Map;

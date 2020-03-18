@@ -34,8 +34,19 @@ public abstract class AbstractClientFrame extends JFrame {
 		JTable works = new JTable();
 		panelWorks.add(works);
 	}
+
+	protected JTable tableOftasks;
 	
-	
+	public JTable getTableOftasks() {
+		return tableOftasks;
+	}
+
+
+	public void setTableOftasks(JTable tableOftasks) {
+		this.tableOftasks = tableOftasks;
+	}
+
+
 	public void setRunner(RunClient runner) {
 		this.runner = runner;
 	}

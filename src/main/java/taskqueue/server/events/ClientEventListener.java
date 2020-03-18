@@ -6,12 +6,12 @@ import taskqueue.server.manager.FileManager;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 
-public class CreateClientFolderOnRegister implements Listener {
+public class ClientEventListener implements Listener {
 
 	protected FileManager fm;
 	protected Logger logger;
 	
-	public CreateClientFolderOnRegister(FileManager fm) {
+	public ClientEventListener(FileManager fm) {
 		this.fm = fm;
 		this.logger = Log.getLogger(this.getClass());
 	}
@@ -19,6 +19,11 @@ public class CreateClientFolderOnRegister implements Listener {
 	public void processEvent(ClientRegisteredEvent e) throws Exception {
 		this.logger.info(String.format("Creating client folder %s", e.getClient().getId().toString()));
 		fm.createClientPersonalFolder(e.getClient());
+	}
+	
+	public void processEvent(ClientWorkDone e) throws Exception{
+		
+		
 	}
 
 }

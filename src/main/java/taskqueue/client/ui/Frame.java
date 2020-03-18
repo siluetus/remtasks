@@ -44,10 +44,6 @@ public class Frame extends AbstractClientFrame {
 	JTabbedPane tabbedPane;
 	public void initFrame() {
 		
-		
-		
-		
-		
 		JPanel panel = new JPanel() {
 			@Override
 			public void paint(Graphics g) {
@@ -87,6 +83,16 @@ public class Frame extends AbstractClientFrame {
 		panel.add(signinTextField);
 		panel.add(signInButton);
 		panel.add(signUpButton);
+		
+		
+		String [] columnNames = {"id", "Client", "task", "Status"};
+		Object [][] data = {{"1", "f3e22111-6204-4b2d-8d54-098597fcb06c", "multyply", "Run"}, 
+				{"2","f3e22111-6204-4b2d-8d54-098597fcb06c", "Addition", "Run"}
+		};
+		
+		tableOftasks = new JTable( data, columnNames);
+		panelTasks.add(tableOftasks);
+	
 		
 		
 	
