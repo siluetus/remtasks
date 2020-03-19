@@ -90,27 +90,27 @@ public abstract class AbstractManagerWithEvents extends AbstractEventDispatcher 
 		this.notifyListeners(LifeCycleEvent.STOPPED, null);
 	}
 
-	public boolean isRunning() {
+	public synchronized boolean isRunning() {
 		return (status & 3) == 3;
 	}
 
-	public boolean isStarted() {
+	public synchronized boolean isStarted() {
 		return (status & 2) == 2;
 	}
 
-	public boolean isStarting() {
+	public synchronized boolean isStarting() {
 		return (status & 1) == 1;
 	}
 
-	public boolean isStopping() {
+	public synchronized boolean isStopping() {
 		return (status & 7) > 4;
 	}
 
-	public boolean isStopped() {
+	public synchronized boolean isStopped() {
 		return (status & 7) == 4 || (status & 7) == 0;
 	}
 
-	public boolean isFailed() {
+	public synchronized boolean isFailed() {
 		return (status & 8) == 8;
 	}
 	

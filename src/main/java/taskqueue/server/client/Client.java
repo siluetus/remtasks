@@ -12,7 +12,7 @@ import taskqueue.server.TaskCollection;
 
 public class Client extends AbstractClient{ 
 
-	protected int maxThreads=3;
+	protected int maxThreads=2;
 	
 	protected boolean admin = false;
 	
@@ -44,6 +44,7 @@ public class Client extends AbstractClient{
 				foundThread = pretendent;
 				break;
 			}
+			
 			if((foundThread==null) || foundThread.getQueueSize() > pretendent.getQueueSize()){
 				foundThread = pretendent;
 			}
@@ -51,15 +52,18 @@ public class Client extends AbstractClient{
 		
 		if((foundThread == null || foundThread.isWorking()) && threads.size()<maxThreads && threadcreator!=null ) {
 			foundThread = threadcreator.createClientThread();
-			threads.add(foundThread);
-			foundThread.setThreadNum((byte)threads.size());
-			foundThread.setThreadName(this.getId().toString());
-			foundThread.start();
+			this.registerThread(foundThread);
 		}
 		
 		return foundThread;
 	}
 	
+	protected void registerThread(ClientThread thread) {
+		threads.add(thread);
+		thread.setThreadNum((byte)threads.size());
+		thread.setThreadName(this.getId().toString());
+		thread.start();
+	}
 	public void addHistory() {
 		
 	}

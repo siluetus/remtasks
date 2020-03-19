@@ -15,7 +15,7 @@ public class ClientWorkThread extends AbstractEventDispatcher implements ClientT
 	}
 	
 	@Override
-	public boolean isRunning() {
+	public synchronized boolean isRunning() {
 		return (this.state & 2)>0 && thread.isAlive();
 	}
 
@@ -25,18 +25,18 @@ public class ClientWorkThread extends AbstractEventDispatcher implements ClientT
 	}
 	
 	@Override
-	public void setFailed(Throwable t) {
+	public synchronized void setFailed(Throwable t) {
 		this.error = t;
 		this.state |= 8; // Set "Fail" bit
 		this.state &= ~7; // Remove all other bits
 	}
 	
 	// Check that this thread is processing a work now
-	public boolean isWorking() {
+	public synchronized boolean isWorking() {
 		return (this.state & 1)>0;
 	}
 	
-	public synchronized void dispatchEvents() {
+	public void dispatchEvents() {
 		this.state |= 1; // Setting working state bit
 		super.dispatchEvents();
 		this.state &= ~1; // removing working state bit
@@ -46,7 +46,7 @@ public class ClientWorkThread extends AbstractEventDispatcher implements ClientT
 		super.run();
 	}
 	
-	public int getQueueSize() {
+	public synchronized int getQueueSize() {
 		return this.events.size();
 	}
 

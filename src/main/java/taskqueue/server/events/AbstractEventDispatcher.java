@@ -22,24 +22,32 @@ public abstract class AbstractEventDispatcher implements Runnable, Consumer<List
 	}
 	
 	public void run() {
-		synchronized(this) {
 			try {
 				while(isRunning()) {
 					this.dispatchEvents();
-					this.wait();
+					this.thisWait();
 				}
 			} catch (InterruptedException e) {
 				this.setFailed(e);
 			}
-		}
+	
 	}
 	
-	public synchronized void dispatchEvents() {
-		while(!events.isEmpty()) {
-			currentEvent = events.poll();
+	
+	public synchronized void thisWait() throws InterruptedException {
+		super.wait();
+	}
+	
+	public synchronized boolean prepareNextEvent() {
+		boolean hasNextEvent = !events.isEmpty();
+		currentEvent = hasNextEvent?events.poll():null;
+		return hasNextEvent;
+	}
+	
+	public void dispatchEvents() {
+		while(this.prepareNextEvent()) {
 			listeners.forEach(this);
 		}
-		
 	}
 	public void accept(taskqueue.server.events.Listener l) {
 		try {
