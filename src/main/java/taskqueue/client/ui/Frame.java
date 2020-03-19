@@ -1,5 +1,6 @@
 package taskqueue.client.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import java.awt.Dimension;
@@ -54,14 +55,14 @@ public class Frame extends AbstractClientFrame {
 			}
 		};
 		panelFiles = new JPanel();
-		panelTasks = new JPanel();
+		//panelTasks = new JPanel();
 		panelWorks = new JPanel();
 		
 		tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(0, 300, 500, 60);
 		tabbedPane.add("Init", panel);
 		tabbedPane.add("Files", panelFiles);
-		tabbedPane.add("Tasks", panelTasks);
+		//tabbedPane.add("Tasks", panelTasks);
 		tabbedPane.add("Works", panelWorks);
 		
 		add(tabbedPane);
@@ -86,13 +87,37 @@ public class Frame extends AbstractClientFrame {
 		
 		
 		String [] columnNames = {"id", "Client", "task", "Status"};
+		
 		Object [][] data = {{"1", "f3e22111-6204-4b2d-8d54-098597fcb06c", "multyply", "Run"}, 
 				{"2","f3e22111-6204-4b2d-8d54-098597fcb06c", "Addition", "Run"}
 		};
-		
 		tableOftasks = new JTable( data, columnNames);
-		panelTasks.add(tableOftasks);
-	
+		
+		JPanel workButtons = new JPanel();
+		workButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		JButton worksRefresh = new JButton("Refresh");
+		workButtons.add(worksRefresh);
+		
+		JScrollPane tasksScroll = new JScrollPane(tableOftasks);
+		//tasksScroll.add(tableOftasks);
+		//tableOftasks.setBounds(0,200,300,100);
+		//tableOftasks.setLayout(new BorderLayout());
+		
+		//tasksScroll.setBorder(BorderFactory.createLineBorder(Color.black) );
+		
+		JPanel tasksTableSub = new JPanel();
+		tasksTableSub.setLayout(new FlowLayout(FlowLayout.LEFT));
+		//tasksTableSub.add(tasksScroll);
+		
+		
+		
+		
+		//panelWorks.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panelWorks.setLayout(new BorderLayout());
+		panelWorks.add(workButtons,BorderLayout.NORTH);
+		//panelWorks.add(tasksScroll);
+		panelWorks.add(tasksScroll,BorderLayout.CENTER);
 		
 		
 	
@@ -107,8 +132,15 @@ public class Frame extends AbstractClientFrame {
 		
 		final DefaultListModel<String> listM = new DefaultListModel<String>();
 		taskList = new JList<String>(listM);
-		panelFiles.add(taskList);
-				
+		JScrollPane filescroll = new JScrollPane(taskList);
+		JPanel filebuttons = new JPanel();
+		filebuttons.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JButton filesRefresh = new JButton("Refresh");
+		filebuttons.add(filesRefresh);
+		panelFiles.setLayout(new BorderLayout());
+		panelFiles.add(filebuttons,BorderLayout.NORTH);
+		panelFiles.add(filescroll);
+		
 		JLabel exQueue = new JLabel();
 		exQueue.setBackground(Color.CYAN);
 		JLabel waitQueue = new JLabel();
@@ -133,48 +165,48 @@ public class Frame extends AbstractClientFrame {
 		 x = 50;
 		 y = 50;
 		 
-		uploadButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				JFileChooser fchooser = fpicker.getFileChooser();
-				final File f = fchooser.getSelectedFile();
-				listM.addElement(f.getAbsolutePath());
-				repaint();
-			}
-		});
+//		uploadButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			
+//				JFileChooser fchooser = fpicker.getFileChooser();
+//				final File f = fchooser.getSelectedFile();
+//				listM.addElement(f.getAbsolutePath());
+//				repaint();
+//			}
+//		});
 		
 		
 		//panelFiles.add(list);
 		/*startTask2.addActionListener(new ActionListener() {
 		*/
 
-		panel.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				/*
-				 * try { dos.writeInt(x); dos.writeInt(y); } catch (java.io.IOException ex) {
-				 * ex.printStackTrace(); }
-				 */
-
-				repaint();
-			}
-
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			public void mouseExited(MouseEvent e) {
-
-			}
-		});
+//		panel.addMouseListener(new MouseListener() {
+//			public void mouseClicked(MouseEvent e) {
+//			}
+//
+//			public void mousePressed(MouseEvent e) {
+//				int x = e.getX();
+//				int y = e.getY();
+//				/*
+//				 * try { dos.writeInt(x); dos.writeInt(y); } catch (java.io.IOException ex) {
+//				 * ex.printStackTrace(); }
+//				 */
+//
+//				repaint();
+//			}
+//
+//			public void mouseReleased(MouseEvent e) {
+//
+//			}
+//
+//			public void mouseEntered(MouseEvent e) {
+//
+//			}
+//
+//			public void mouseExited(MouseEvent e) {
+//
+//			}
+//		});
 
 		//add(panel);
 		
