@@ -31,8 +31,6 @@ public abstract class AbstractClientFrame extends JFrame {
 	
 	public void initFrame2() {
 		initFrame();
-		JTable works = new JTable();
-		panelWorks.add(works);
 	}
 
 	protected JTable tableOftasks;

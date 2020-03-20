@@ -24,6 +24,7 @@ public class RemoveAddRows extends JFrame {
     private javax.swing.Timer timer = null;
 
     public RemoveAddRows() {
+    	
         model = new DefaultTableModel(data, columnNames) {
 
             private static final long serialVersionUID = 1L;
@@ -32,21 +33,29 @@ public class RemoveAddRows extends JFrame {
             public Class getColumnClass(int column) {
                 return getValueAt(0, column).getClass();
             }
+            
         };
+        
         table = new JTable(model) {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+            	
                 Component c = super.prepareRenderer(renderer, row, column);
+                
                 if (isRowSelected(row) && isColumnSelected(column)) {
                     ((JComponent) c).setBorder(new LineBorder(Color.red));
                 }
+                
                 return c;
+                
             }
         };
+        
         ListSelectionModel rowSelMod = table.getSelectionModel();
+        
         rowSelMod.addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent e) {
@@ -66,14 +75,16 @@ public class RemoveAddRows extends JFrame {
                 System.out.println(str);
                 Object value = table.getValueAt(row, col);
                 System.out.println(String.valueOf(value));
+                
             }
+            
         });
+        
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
         JButton button1 = new JButton("Remove all rows");
         button1.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent arg0) {
                 if (model.getRowCount() > 0) {
                     for (int i = model.getRowCount() - 1; i > -1; i--) {
@@ -83,9 +94,9 @@ public class RemoveAddRows extends JFrame {
                 System.out.println("model.getRowCount() --->" + model.getRowCount());
             }
         });
+        
         JButton button2 = new JButton("Add new rows");
         button2.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent arg0) {
                 start();
             }
@@ -93,7 +104,7 @@ public class RemoveAddRows extends JFrame {
         JPanel southPanel = new JPanel();
         southPanel.add(button1);
         southPanel.add(button2);
-        add(southPanel, BorderLayout.SOUTH);
+        add(southPanel, BorderLayout.NORTH);
     }
 
     private void start() {

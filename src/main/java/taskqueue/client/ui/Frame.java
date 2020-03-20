@@ -2,7 +2,7 @@ package taskqueue.client.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -16,15 +16,12 @@ import java.io.File;
 
 
 import javax.swing.*;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.*;
-import javax.swing.JTabbedPane;
-import javax.swing.DefaultListModel;
-
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import taskqueue.client.RunClient;
 
@@ -37,35 +34,13 @@ public class Frame extends AbstractClientFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel panelFiles;
-	JPanel panelTasks;
-	//JPanel panelWorks;
-	JList<String> taskList;
+
 	
-	JTabbedPane tabbedPane;
+
 	public void initFrame() {
 		
-		JPanel panel = new JPanel() {
-			@Override
-			public void paint(Graphics g) {
-				super.paint(g);
-				// setBackground(Color.YELLOW);
-				// g.setColor( Color.yellow);
-				//g.fillRoundRect(x, y, 5, 5, 5, 5);
-			}
-		};
-		panelFiles = new JPanel();
-		//panelTasks = new JPanel();
-		panelWorks = new JPanel();
-		
-		tabbedPane = new JTabbedPane();
-		tabbedPane.setBounds(0, 300, 500, 60);
-		tabbedPane.add("Init", panel);
-		tabbedPane.add("Files", panelFiles);
-		//tabbedPane.add("Tasks", panelTasks);
-		tabbedPane.add("Works", panelWorks);
-		
-		add(tabbedPane);
+		// Prepairing main tab
+		  // File uploading box
 		fpicker = new JFilePicker("Pick a task", "Load");
 		fpicker.setMode(JFilePicker.MODE_OPEN);
 		uploadButton = new JButton("Unpload");
@@ -73,6 +48,12 @@ public class Frame extends AbstractClientFrame {
 		uploadButton.setVisible(true);
 		uploadButton.setEnabled(true);
 		uploadButton.setMinimumSize(new Dimension(40, 20));
+		JPanel uploadBox = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		uploadBox.add(fpicker);
+		uploadBox.add(uploadButton);
+		
+		  // Login box 
+		JLabel signin = new JLabel("Authorize");
 		signinTextField = new JTextField();
 		signinTextField.setText("Enter id here");
 		signinTextField.setColumns(28);
@@ -81,141 +62,67 @@ public class Frame extends AbstractClientFrame {
 		signInButton.setText("Log in");
 		signUpButton = new JButton();
 		signUpButton.setText("Register");
-		panel.add(signinTextField);
-		panel.add(signInButton);
-		panel.add(signUpButton);
+		JPanel loginButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		loginButtons.add(signin);
+		loginButtons.add(signinTextField);
+		loginButtons.add(signInButton);
+		loginButtons.add(signUpButton);
+		
+		JPanel mainTabBox = new JPanel();
+		mainTabBox.setLayout(new BoxLayout(mainTabBox,BoxLayout.Y_AXIS));
+		mainTabBox.add(loginButtons);
+		mainTabBox.add(uploadBox);
+		mainTabBox.setBackground(Color.YELLOW);
+		JPanel mainTabPanel = new JPanel(new BorderLayout());
+		mainTabPanel.add(mainTabBox,BorderLayout.NORTH);
 		
 		
-		String [] columnNames = {"id", "Client", "task", "Status"};
+		// Preparing Works tab
+		String [] columnNames = {"id", "File", "Status"};
 		
-		Object [][] data = {{"1", "f3e22111-6204-4b2d-8d54-098597fcb06c", "multyply", "Run"}, 
-				{"2","f3e22111-6204-4b2d-8d54-098597fcb06c", "Addition", "Run"}
+		Object [][] data = {
+				{"f3e22111-6204-4b2d-8d54-098597fcb06c", "test1.jar", "Run"}, 
+				{"f3e22111-6204-4b2d-8d54-098597fcb06c", "test2.jar", "Run"}
 		};
-		tableOftasks = new JTable( data, columnNames);
-		
+		DefaultTableModel  worksModel = new DefaultTableModel(data, columnNames);
+	    JTable tableWorks = new JTable(worksModel);
+        tableWorks.setPreferredScrollableViewportSize(tableWorks.getPreferredSize());
+        JScrollPane scrollPane = new JScrollPane(tableWorks);
 		JPanel workButtons = new JPanel();
 		workButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
-		
 		JButton worksRefresh = new JButton("Refresh");
 		workButtons.add(worksRefresh);
+        JPanel worksPan = new JPanel();
+        worksPan.setLayout(new BorderLayout());
+        worksPan.add(scrollPane);
+        worksPan.add(workButtons, BorderLayout.NORTH);
+        
 		
-		JScrollPane tasksScroll = new JScrollPane(tableOftasks);
-		//tasksScroll.add(tableOftasks);
-		//tableOftasks.setBounds(0,200,300,100);
-		//tableOftasks.setLayout(new BorderLayout());
-		
-		//tasksScroll.setBorder(BorderFactory.createLineBorder(Color.black) );
-		
-		JPanel tasksTableSub = new JPanel();
-		tasksTableSub.setLayout(new FlowLayout(FlowLayout.LEFT));
-		//tasksTableSub.add(tasksScroll);
-		
-		
-		
-		
-		//panelWorks.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panelWorks.setLayout(new BorderLayout());
-		panelWorks.add(workButtons,BorderLayout.NORTH);
-		//panelWorks.add(tasksScroll);
-		panelWorks.add(tasksScroll,BorderLayout.CENTER);
-		
-		
-	
-		
-		/*final JFileChooser fchooser = new JFileChooser();
-
-		JButton startTask2 = new JButton("Start task 2");
-		startTask2.setLocation(10, 40);
-		startTask2.setVisible(true);
-		startTask2.setEnabled(true);
-		startTask2.setMinimumSize(new Dimension(40, 20));*/
-		
-		final DefaultListModel<String> listM = new DefaultListModel<String>();
-		taskList = new JList<String>(listM);
+		// Preparing files tab
+        DefaultListModel<String> listM = new DefaultListModel<String>();
+        JList<String> taskList = new JList<String>(listM);
 		JScrollPane filescroll = new JScrollPane(taskList);
 		JPanel filebuttons = new JPanel();
 		filebuttons.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JButton filesRefresh = new JButton("Refresh");
 		filebuttons.add(filesRefresh);
+		JPanel panelFiles = new JPanel();
 		panelFiles.setLayout(new BorderLayout());
 		panelFiles.add(filebuttons,BorderLayout.NORTH);
 		panelFiles.add(filescroll);
 		
-		JLabel exQueue = new JLabel();
-		exQueue.setBackground(Color.CYAN);
-		JLabel waitQueue = new JLabel();
-		exQueue.setVisible(true);
+		// Creating Tabs
+        JTabbedPane tabbed = new JTabbedPane();
+        tabbed.add("Main",mainTabPanel);
+        tabbed.add("Files",panelFiles);
+        tabbed.add("Works",worksPan);
+        
+        add(tabbed);
+        
+		setMinimumSize(new Dimension(600, 300));
+		//setPreferredSize(new Dimension(1000, 800));
 
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel.setVisible(true);
-		panel.setEnabled(true);
-
-		setMinimumSize(new Dimension(500, 500));
-		setPreferredSize(new Dimension(1000, 800));
-		panel.setMinimumSize(new Dimension(500, 500));
-		panel.add(fpicker);
-		panel.add(uploadButton);
-		//panel.add(startTask2);
-		
-
-		panel.add(exQueue);
-		panel.add(waitQueue);
-		
-		panel.setBackground(Color.YELLOW);
-		 x = 50;
-		 y = 50;
-		 
-//		uploadButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//			
-//				JFileChooser fchooser = fpicker.getFileChooser();
-//				final File f = fchooser.getSelectedFile();
-//				listM.addElement(f.getAbsolutePath());
-//				repaint();
-//			}
-//		});
-		
-		
-		//panelFiles.add(list);
-		/*startTask2.addActionListener(new ActionListener() {
-		*/
-
-//		panel.addMouseListener(new MouseListener() {
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//
-//			public void mousePressed(MouseEvent e) {
-//				int x = e.getX();
-//				int y = e.getY();
-//				/*
-//				 * try { dos.writeInt(x); dos.writeInt(y); } catch (java.io.IOException ex) {
-//				 * ex.printStackTrace(); }
-//				 */
-//
-//				repaint();
-//			}
-//
-//			public void mouseReleased(MouseEvent e) {
-//
-//			}
-//
-//			public void mouseEntered(MouseEvent e) {
-//
-//			}
-//
-//			public void mouseExited(MouseEvent e) {
-//
-//			}
-//		});
-
-		//add(panel);
-		
+        
 	}
 
-//	public void dispose() {
-//		Window[] windows = this.getWindows();
-//		for(int i=0;i<windows.length;i++) {
-//			windows[i].dispose();
-//		}
-//	}
 }
