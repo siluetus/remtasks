@@ -1,7 +1,10 @@
 package taskqueue.server.handlers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -10,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 import org.eclipse.jetty.server.Request;
 
+import taskqueue.server.works.Work;
 import taskqueue.json.JsonReply;
 import taskqueue.json.JsonReplyList;
 import taskqueue.json.JsonReplyString;
@@ -60,15 +65,19 @@ public class WorksHandler extends AbstractHandler {
 							answer.add(this.addWork(fileID, client, cf , worksManager));
 						}
 					}
-					
-					this.respondJSON(answer, response);
-					baseRequest.setHandled(true);
-					return;
 				}
 				 
 			}
 			
+			
+			if(request.getMethod()=="GET") {
+				this.listWorks(client.getClientWorks(), worksManager,answer);
+			}
 		
+			this.respondJSON(answer, response);
+			baseRequest.setHandled(true);
+			return;
+			
 		}catch(Exception e) {
 			this.respondHTTP400(response, String.format("%s %s", e.getClass().toString(), e.getMessage()));
 			baseRequest.setHandled(true);
@@ -90,6 +99,39 @@ public class WorksHandler extends AbstractHandler {
 		cw.setClientID(client.getId());
 		worksManager.queueWork(cw, client);
 		return cw.getUuid().toString();
+	}
+	
+	
+	public void listWorks(UUID[] workIds, WorksManager worksManager, List<JSONAware> result){
+
+		for(int i=0;i<workIds.length;i++) {
+			JSONObject jsonwork = new JSONObject();
+			Work work = worksManager.getWork(workIds[i]);
+			jsonwork.put("WorkID", work.getUuid().toString());
+			if(work instanceof ClientWorkByJar) {
+				ClientFile workfile = ((ClientWorkByJar) work).getFile();
+				ClientFile outfile = ((ClientWorkByJar) work).getOut();
+				jsonwork.put("WorkType","jar");
+				if(workfile!=null) {
+					JSONObject wfjson = new JSONObject();
+					wfjson.put("FileID",workfile.getUuid().toString());
+					wfjson.put("FileName",workfile.getFileName());
+					wfjson.put("FileOwnerID",workfile.getClientID().toString());
+					jsonwork.put("JarFile", wfjson);
+				}
+				
+				if(outfile!=null) {
+					JSONObject ofjson = new JSONObject();
+					ofjson.put("FileID",outfile.getUuid().toString());
+					ofjson.put("FileName",outfile.getFileName());
+					jsonwork.put("OutFile", ofjson);
+
+				}
+				jsonwork.put("WorkState", work.getStateAsString());
+			}
+			result.add(jsonwork);
+		}		
+		
 	}
 	
 	

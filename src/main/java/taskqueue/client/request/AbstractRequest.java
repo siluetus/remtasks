@@ -1,11 +1,13 @@
 package taskqueue.client.request;
 
+import java.io.UnsupportedEncodingException;
+
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.util.BytesContentProvider;
 import org.eclipse.jetty.http.HttpFields;
 import org.eclipse.jetty.http.HttpMethod;
-
-
+import org.json.simple.JSONAware;
 import org.json.simple.parser.JSONParser;
 
 import taskqueue.client.response.AbstractResponseManager;
@@ -73,5 +75,10 @@ public abstract class AbstractRequest implements Runnable {
 
 	public void setManager(AbstractResponseManager manager) {
 		this.manager = manager;
+	}
+	
+	public void setJSONContent(JSONAware json) throws UnsupportedEncodingException {
+		//this.httpRequest.header("Content-Type","application/json;charset=UTF8");
+		this.httpRequest.content(new BytesContentProvider("application/json;charset=UTF8",json.toString().getBytes("UTF-8")));
 	}
 }

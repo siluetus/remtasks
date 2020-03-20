@@ -47,6 +47,18 @@ public abstract class AbstractClientWork implements Work {
 	
 	public abstract void run();
 
-		
+	public String getStateAsString() {
+		switch(this.state & 7) {
+		case 1:
+			return "Queued";
+		case 2:
+			return "?Started?";
+		case 3:
+			return "In Run";
+		case 4:
+			return "Done";
+		}
+		return "null";
+	}
 
 }

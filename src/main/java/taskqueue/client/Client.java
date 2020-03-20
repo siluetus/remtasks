@@ -12,6 +12,8 @@ import taskqueue.client.response.SignedUpResponseMapper;
 import taskqueue.client.response.UploadResponseManager;
 import taskqueue.client.ui.AbstractClientFrame;
 import taskqueue.client.ui.handlers.AbstractHandler;
+import taskqueue.client.ui.handlers.FileRefreshHandler;
+import taskqueue.client.ui.handlers.FileRunHandler;
 import taskqueue.client.ui.handlers.SignInHandler;
 import taskqueue.client.ui.handlers.SignUpHandler;
 import taskqueue.client.ui.handlers.UploadHandler;
@@ -32,11 +34,18 @@ public class Client {
 	protected AbstractHandler signUpHandler;
 	protected AbstractHandler signInHandler;
 	protected AbstractHandler uploadHandler;
+	protected AbstractHandler filesRefreshHandler;
+	protected AbstractHandler fileRunHandler;
+	protected AbstractHandler worksRefreshHandler;
+	
+	protected Logger logger;
+	
 	
 	
 	
 	public Client (RunClient runner) {
 		this.runner = runner;
+		this.logger = Log.getLogger(this.getClass());
 	}
 	
 	
@@ -76,6 +85,10 @@ public class Client {
 		this.signUpHandler = this.createUiHandler(SignUpHandler.class,clientFrame,clientFrame.getSignUpButton());
 		this.signInHandler = this.createUiHandler(SignInHandler.class,clientFrame,clientFrame.getSignInButton());
 		this.uploadHandler = this.createUiHandler(UploadHandler.class,clientFrame,clientFrame.getUploadButton());
+		this.filesRefreshHandler = this.createUiHandler(FileRefreshHandler.class,clientFrame,clientFrame.getFilesRefreshButton());
+		this.fileRunHandler = this.createUiHandler(FileRunHandler.class,clientFrame,clientFrame.getFileRunButton());
+		this.worksRefreshHandler = this.createUiHandler(UploadHandler.class,clientFrame,clientFrame.getWorksRefreshButton());
+		
 
 	}
 	
@@ -94,7 +107,7 @@ public class Client {
 			}
 			return newRequest;
 		} catch (Exception e) {
-
+			this.logger.info(e);
 		} 
 
 		return null;

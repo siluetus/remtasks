@@ -1,13 +1,16 @@
 package taskqueue.client.ui;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 
 import taskqueue.client.RunClient;
+import taskqueue.client.ClientFile;
 
 public abstract class AbstractClientFrame extends JFrame {
 
@@ -25,7 +28,11 @@ public abstract class AbstractClientFrame extends JFrame {
 	protected JButton signUpButton;
 	protected JFilePicker fpicker;
 	protected JTextField signinTextField;
-	protected JPanel panelWorks;
+	protected JButton filesRefresh;
+	protected JButton worksRefresh;
+	protected JButton fileRun;
+	protected JList<ClientFile> filesList  = new JList<ClientFile>();
+	protected JTable worksTable;
 	
 	public abstract void initFrame();
 	
@@ -68,6 +75,26 @@ public abstract class AbstractClientFrame extends JFrame {
 	
 	public JFilePicker getFilePicker() {
 		return this.fpicker;
+	}
+	
+	public JButton getWorksRefreshButton() {
+		return worksRefresh;
+	}
+	
+	public JButton getFilesRefreshButton() {
+		return filesRefresh;
+	}
+	
+	public JButton getFileRunButton() {
+		return fileRun;
+	}
+	
+	public JList<ClientFile> getFilesList(){
+		return this.filesList;
+	}
+
+	public JTable getWorksTable() {
+		return worksTable;
 	}
 	
 	

@@ -77,4 +77,14 @@ public class ClientWorkByJar extends AbstractClientWork {
 			org.eclipse.jetty.util.log.Log.getLogger(this.getClass()).info(String.format("Exception %s of %s", e.getMessage(),e.getClass().toString()));
 		}		
 	}
+
+	public ClientFile getFile() {
+		return file;
+	}
+
+	public ClientFile getOut() {
+		return out;
+	}
+
+
 }

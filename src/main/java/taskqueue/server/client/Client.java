@@ -18,7 +18,7 @@ public class Client extends AbstractClient{
 	
 	
 	protected List<ClientThread> threads = new LinkedList<ClientThread>();
-	protected List<UUID> worksHistory = new LinkedList<UUID>();
+	protected List<UUID> attachedWorks = new LinkedList<UUID>();
 	
 	public Client(java.util.UUID uuid) {
 		super(uuid);
@@ -64,7 +64,11 @@ public class Client extends AbstractClient{
 		thread.setThreadName(this.getId().toString());
 		thread.start();
 	}
-	public void addHistory() {
-		
+	public void attachWork(UUID clientWorkID) {
+		this.attachedWorks.add(clientWorkID);
+	}
+	
+	public UUID[] getClientWorks() {
+		return attachedWorks.toArray(new UUID[0]);
 	}
 }

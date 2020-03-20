@@ -6,7 +6,6 @@ public class UploadResponseMapper extends AbstractResponseMapper {
 
 	@Override
 	public void responseUINormal(JsonReply json) {
-		// TODO Auto-generated method stub
 
 	}
 

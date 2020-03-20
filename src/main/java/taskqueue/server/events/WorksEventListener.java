@@ -30,8 +30,8 @@ public class WorksEventListener implements Listener {
 			Client client = (Client) e.getClient();
 			Work work = e.getWork();
 			ClientThread thread = client.findThread(this.clientThreadFactory);
-			
 			thread.queueWork(work);
+			client.attachWork(work.getUuid());
 		}
 	}
 	

@@ -41,9 +41,9 @@ public class Frame extends AbstractClientFrame {
 		
 		// Prepairing main tab
 		  // File uploading box
-		fpicker = new JFilePicker("Pick a task", "Load");
+		fpicker = new JFilePicker("Pick a task", "...");
 		fpicker.setMode(JFilePicker.MODE_OPEN);
-		uploadButton = new JButton("Unpload");
+		uploadButton = new JButton("Upload");
 		uploadButton.setLocation(10, 10);
 		uploadButton.setVisible(true);
 		uploadButton.setEnabled(true);
@@ -85,12 +85,14 @@ public class Frame extends AbstractClientFrame {
 				{"f3e22111-6204-4b2d-8d54-098597fcb06c", "test2.jar", "Run"}
 		};
 		DefaultTableModel  worksModel = new DefaultTableModel(data, columnNames);
-	    JTable tableWorks = new JTable(worksModel);
-        tableWorks.setPreferredScrollableViewportSize(tableWorks.getPreferredSize());
-        JScrollPane scrollPane = new JScrollPane(tableWorks);
+	    worksTable = new JTable(worksModel);
+	    //worksTable.setMo
+	    
+	    worksTable.setPreferredScrollableViewportSize(worksTable.getPreferredSize());
+        JScrollPane scrollPane = new JScrollPane(worksTable);
 		JPanel workButtons = new JPanel();
 		workButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JButton worksRefresh = new JButton("Refresh");
+		worksRefresh = new JButton("Refresh");
 		workButtons.add(worksRefresh);
         JPanel worksPan = new JPanel();
         worksPan.setLayout(new BorderLayout());
@@ -99,13 +101,16 @@ public class Frame extends AbstractClientFrame {
         
 		
 		// Preparing files tab
-        DefaultListModel<String> listM = new DefaultListModel<String>();
-        JList<String> taskList = new JList<String>(listM);
-		JScrollPane filescroll = new JScrollPane(taskList);
+        //filesList = new DefaultListModel<String>();
+        //JList<String> taskList = new JList<String>(filesList);
+        //filesList = new new JList<ClientFile>();
+		JScrollPane filescroll = new JScrollPane(filesList);
 		JPanel filebuttons = new JPanel();
 		filebuttons.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JButton filesRefresh = new JButton("Refresh");
+		filesRefresh = new JButton("Refresh");
+		fileRun = new JButton("Run");
 		filebuttons.add(filesRefresh);
+		filebuttons.add(fileRun);
 		JPanel panelFiles = new JPanel();
 		panelFiles.setLayout(new BorderLayout());
 		panelFiles.add(filebuttons,BorderLayout.NORTH);

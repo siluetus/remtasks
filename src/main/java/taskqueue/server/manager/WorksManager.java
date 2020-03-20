@@ -18,12 +18,12 @@ import taskqueue.server.works.Work;
 public class WorksManager extends AbstractManagerWithEvents implements ClientThreadFactory {
 
 	
-	protected Dictionary<UUID,ClientWorkByJar> works;
+	protected Dictionary<UUID,Work> works;
 	
 	
 	@Override
 	public void doStart() throws Exception {
-		works = new Hashtable<UUID,ClientWorkByJar>();
+		works = new Hashtable<UUID,Work>();
 		status |= 2;
 	}
 
@@ -60,5 +60,9 @@ public class WorksManager extends AbstractManagerWithEvents implements ClientThr
 		ClientWorkDone e = new ClientWorkDone();
 		e.setWork(work);
 		this.fireEvent(e);
+	}
+	
+	public Work getWork(UUID id) {
+		return this.works.get(id);
 	}
 }

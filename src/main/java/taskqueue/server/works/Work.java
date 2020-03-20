@@ -10,5 +10,6 @@ public interface Work extends Runnable{
 	public void setDone(boolean b);
 	public UUID getClientID();
 	public UUID getUuid();
+	public String getStateAsString();
 	
 }
