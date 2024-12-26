@@ -11,13 +11,13 @@
           <mxGeometry x="60" y="160" width="1090" height="80" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-2" value="&lt;h2&gt;master&lt;/h2&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-130" y="160" width="140" height="80" as="geometry" />
+          <mxGeometry x="-130" y="160" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="60" y="480" width="1090" height="80" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-4" value="&lt;h2&gt;release-x.y&lt;/h2&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-130" y="480" width="140" height="80" as="geometry" />
+          <mxGeometry x="-130" y="480" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-5" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
           <mxGeometry x="60" y="320" width="1090" height="80" as="geometry" />
@@ -35,7 +35,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-16" value="&lt;h2&gt;*release-x.[y-n]&lt;/h2&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-130" y="640" width="140" height="80" as="geometry" />
+          <mxGeometry x="-130" y="640" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-18" value="x.[y-n]&lt;span style=&quot;background-color: initial;&quot;&gt;.w&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="47.5" y="600" width="95" height="20" as="geometry" />
@@ -197,7 +197,7 @@
           <mxGeometry x="60" width="1090" height="80" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-56" value="&lt;h2&gt;release-x.[y+1]&lt;/h2&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-130" width="140" height="80" as="geometry" />
+          <mxGeometry x="-130" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="iaNGk2XYDdVEJVMVyS7h-57" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="iaNGk2XYDdVEJVMVyS7h-55" source="iaNGk2XYDdVEJVMVyS7h-62">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -306,6 +306,18 @@
             <mxPoint x="250" y="490" as="sourcePoint" />
             <mxPoint x="300" y="440" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="iaNGk2XYDdVEJVMVyS7h-88" value="deploy test (any commit)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="230" width="140" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="iaNGk2XYDdVEJVMVyS7h-90" value="deploy prod on tag" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="540" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="iaNGk2XYDdVEJVMVyS7h-92" value="deploy release on create" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="60" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="iaNGk2XYDdVEJVMVyS7h-94" value="deploy old prods on tag" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="700" width="140" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
